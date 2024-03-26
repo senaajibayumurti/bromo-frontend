@@ -4,12 +4,12 @@ export default function Index(){
             <div class="w-3/4 flex justify-center items-center">
                 <img class="h-full w-full max-w-full object-cover" src="/bromo.png" alt="BroMo.png"/>
             </div>
-            <div class="w-1/4 bg-gray-100 flex items-center justify-center px-5">
-                <div class="w-full max-w-sm">
+            <div class="w-1/4 bg-gray-100 flex items-center justify-center px-10">
+                <div class="w-full max-w-xl">
                     <div class="sm:mx-auto sm:w-full">
                         <img class="mx-auto h-10 w-auto" src="" alt="BroMo.png"/>
                     </div>
-                    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div class="mt-10">
                         <form class="space-y-6" action="#" method="POST">
                             <div>
                                 <button type="submit" class="flex w-full justify-center rounded-full bg-transparent border border-black focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-bold text-black py-4 px-4">
