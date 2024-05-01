@@ -7,7 +7,11 @@ module.exports = {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'bromo-gray-500': '#6C87AE'
+      }
+    },
   },
   plugins: [],
 }
