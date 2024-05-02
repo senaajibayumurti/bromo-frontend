@@ -1,8 +1,8 @@
 export default function SignIn(){
     return (
         <div class="flex h-screen">
-            <div class="w-3/4 flex justify-center items-center">
-                <img class="h-full w-full max-w-full object-cover" src="/bromo.png" alt="BroMo.png"/>
+            <div class="w-3/4 flex justify-center items-center bg-green-600">
+                <img class="h-full w-full max-w-full object-cover" src="" alt="BroMo.png"/>
             </div>
             <div class="w-1/4 bg-gray-100 flex items-center justify-center px-5">
                 <div class="w-full max-w-sm">
