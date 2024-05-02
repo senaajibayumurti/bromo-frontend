@@ -6,7 +6,7 @@ export default function Topbar_landingpage(){
             inline-block text-transparent bg-clip-text">
                 BroMo
             </h1>
-            <h1 className="text-xl font-bold bg-gradient-to-r text-green-600">Broiler Monitoring</h1>
+            <h1 className="text-sm font-bold bg-gradient-to-r text-green-600">Broiler Monitoring</h1>
         </div>
     );
 }

@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Topbar from '../components/Topbar_landingpage';
-import Circle from '../components/Temp-Circle';
-import Icon from '../components/arrow-right-end-on-rectangle';
+import Circle from '../components/Temp_circle';
+import Icon from '../components/Icon_arrow-right-end-on-rectangle';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-auto ">
         <div className="flex flex-col w-3/4 h-screen mx-auto">
             <div className="h-min w-full my-4">
                 <Topbar/>
