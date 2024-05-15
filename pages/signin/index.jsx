@@ -7,7 +7,8 @@ export default function SignIn(){
             <div class="w-1/4 bg-gray-100 flex items-center justify-center px-5">
                 <div class="w-full max-w-sm">
                     <div class="sm:mx-auto sm:w-full">
-                        <img class="mx-auto h-10 w-auto" src="" alt="BroMo.png"/>
+                        <div className="text-5xl font-bold">Sign In</div>
+                        <div className="text-4xl font-medium">Join us today</div>
                     </div>
                     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form class="space-y-6" action="#" method="POST">

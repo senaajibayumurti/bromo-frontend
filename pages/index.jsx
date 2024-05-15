@@ -1,9 +1,6 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import Topbar from '../components/Topbar_landingpage';
 import Circle from '../components/Temp_circle';
 import Icon from '../components/Icon_arrow-right-end-on-rectangle';
-import Image from 'next/image';
 
 export default function Home() {
   return (

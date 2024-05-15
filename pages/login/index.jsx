@@ -7,7 +7,8 @@ export default function LogIn(){
             <div class="w-1/4 bg-gray-100 flex items-center justify-center px-10">
                 <div class="w-full max-w-xl">
                     <div class="sm:mx-auto sm:w-full">
-                        <img class="mx-auto h-10 w-auto" src="" alt="BroMo.png"/>
+                        <div className="text-5xl font-bold">Log In</div>
+                        <div className="text-4xl font-medium">Welcome back</div>
                     </div>
                     <div class="mt-10">
                         <form class="space-y-6" action="#" method="POST">
