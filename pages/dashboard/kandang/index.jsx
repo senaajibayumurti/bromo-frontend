@@ -1,10 +1,10 @@
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
-import TableThree from "../../../components/Tables/TableThree";
+import TableOne from "../../../components/Tables/TableOne";
 
-export default function RekapData(children) {
+export default function Kandang(children) {
     return (
         <DashboardLayout>
-            <TableThree/>
+            <TableOne/>
         </DashboardLayout>
     );
 }
