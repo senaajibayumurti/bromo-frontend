@@ -1,102 +1,102 @@
-import Image from "next/image";
-
-const harvestData = [
+const packageData = [
   {
-    no: 1,
     kandang: "Kandang A",
-    tanggalMulai: "2024-05-01",
-    tanggalPanen: "2024-05-10",
-    jumlahPanen: 500,
-    bobotTotal: 250,
+    tanggalMulai: `Jan 1, 2023`,
+    tanggalPanen: `Jan 13, 2023`,
+    jumlahPanen: 100,
+    bobotTotal: 150,
   },
   {
-    no: 2,
     kandang: "Kandang B",
-    tanggalMulai: "2024-05-02",
-    tanggalPanen: "2024-05-12",
-    jumlahPanen: 600,
-    bobotTotal: 280,
+    tanggalMulai: `Jan 2, 2023`,
+    tanggalPanen: `Jan 14, 2023`,
+    jumlahPanen: 120,
+    bobotTotal: 180,
   },
   {
-    no: 3,
     kandang: "Kandang C",
-    tanggalMulai: "2024-05-03",
-    tanggalPanen: "2024-05-15",
-    jumlahPanen: 550,
-    bobotTotal: 270,
+    tanggalMulai: `Jan 3, 2023`,
+    tanggalPanen: `Jan 15, 2023`,
+    jumlahPanen: 130,
+    bobotTotal: 200,
+  },
+  {
+    kandang: "Kandang D",
+    tanggalMulai: `Jan 4, 2023`,
+    tanggalPanen: `Jan 16, 2023`,
+    jumlahPanen: 140,
+    bobotTotal: 210,
   },
 ];
 
-const TableTwo = () => {
-  const handleDownload = (id) => {
-    console.log("Unduh data panen dengan id:", id);
-    // Tambahkan logika untuk mengunduh data panen di sini
-  };
-
+const TableThree = () => {
   return (
-    <div className="rounded-sm border border-black bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 text-xl font-semibold text-black">
-        Daftar Panen
-      </h4>
-
-      <div className="flex flex-col">
-        <div className="grid grid-cols-7 bg-green-600 dark:bg-meta-4">
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">No</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Kandang</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Tanggal Mulai</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Tanggal Panen</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Jumlah Panen</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Bobot Total (kg)</h5>
-          </div>
-          <div className="p-2.5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Aksi</h5>
-          </div>
-        </div>
-
-        {harvestData.map((harvest, key) => (
-          <div
-            className={`grid grid-cols-7 ${
-              key === harvestData.length - 1 ? "" : "border-b border-black dark:border-strokedark"
-            }`}
-            key={key}
-          >
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black w-max">{harvest.no}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black">{harvest.kandang}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black">{harvest.tanggalMulai}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black">{harvest.tanggalPanen}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black">{harvest.jumlahPanen}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <p className="text-black">{harvest.bobotTotal}</p>
-            </div>
-            <div className="flex items-center justify-center p-2.5">
-              <button onClick={() => handleDownload(harvest.no)} className="text-black dark:text-black bg-blue-500 rounded px-8 py-2">Unduh</button>
-            </div>
-          </div>
-        ))}
+    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
+      <div className="max-w-full overflow-x-auto">
+        <table className="w-full table-auto">
+          <thead>
+            <tr className="bg-gray-2 text-left dark:bg-meta-4">
+              <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
+                No
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Nama Kandang
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Tanggal Mulai
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Tanggal Panen
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Jumlah Panen (ekor)
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Bobot Total (kg)
+              </th>
+              <th className="px-4 py-4 font-medium text-black">
+                Aksi
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {packageData.map((packageItem, key) => (
+              <tr key={key}>
+                <td className="border-b border-[#eee] px-4 py-5 xl:pl-11">
+                  <p className="text-black">{key + 1}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <p className="text-black">{packageItem.kandang}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <p className="text-black">{packageItem.tanggalMulai}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <p className="text-black">{packageItem.tanggalPanen}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <p className="text-black">{packageItem.jumlahPanen}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <p className="text-black">{packageItem.bobotTotal}</p>
+                </td>
+                <td className="border-b border-[#eee] px-4 py-5">
+                  <div className="flex items-center space-x-3.5">
+                    <button className="px-4 py-2 font-medium text-white bg-green-500 rounded hover:bg-green-600">
+                      Buka
+                    </button>
+                    <button className="px-4 py-2 font-medium text-white bg-red-500 rounded hover:bg-red-600">
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default TableTwo;
+export default TableThree;

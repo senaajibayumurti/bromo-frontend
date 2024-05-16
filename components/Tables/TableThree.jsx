@@ -17,7 +17,7 @@ const packageData = [
   },
 ];
 
-const TableOne = () => {
+const TableThree = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -69,4 +69,4 @@ const TableOne = () => {
   );
 };
 
-export default TableOne;
+export default TableThree;
