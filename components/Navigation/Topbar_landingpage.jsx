@@ -1,6 +1,6 @@
 export default function Topbar_landingpage(){
     return (
-        <div className="flex-col h-auto w-auto items-center justify-center">
+        <div className="flex-col h-auto w-auto items-start justify-center">
             <h1 className="text-3xl font-bold 
             bg-gradient-to-r from-yellow-300 to-green-500 
             inline-block text-transparent bg-clip-text">
