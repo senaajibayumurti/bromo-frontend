@@ -7,8 +7,8 @@ export default function Landingpage(){
             height={100}
             layout='fit'/>
             <article class="text-wrap my-auto">
-                <h1 className="text-4xl font-bold text-white">BroMo</h1>
-                <p className="text-lg font-bold text-white">Broiler Monitoring</p>
+                <h1 className="text-4xl font-bold text-bromo-gray-50">BroMo</h1>
+                <p className="text-lg font-bold text-bromo-gray-50">Broiler Monitoring</p>
             </article>
             </div>
         </div>

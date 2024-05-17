@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCog, faSignOutAlt, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-const DropdownProfile = () => {
+const DropdownProfil = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -16,6 +16,10 @@ const DropdownProfile = () => {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   }, [dropdownOpen]);
+
+  const handleNavigation = (url) => {
+    window.location.href = url;
+  };
 
   return (
     <div className="relative">
@@ -39,25 +43,36 @@ const DropdownProfile = () => {
       </div>
 
       {dropdownOpen && (
-        <div ref={dropdown} className="absolute right-0 mt-4 w-48 bg-white rounded-sm border border-gray-300 shadow-default">
+        <div ref={dropdown} className="absolute right-0 mt-4 w-48 bg-bromo-green-50 rounded-sm border border-gray-300 shadow-default">
           <ul className="flex flex-col gap-2 border-b border-gray-300 px-3 py-2">
-            <li className="flex items-center gap-3 text-sm font-medium">
+            <li 
+              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2" 
+              onClick={() => handleNavigation('/dashboard/profil')}
+            >
               <FontAwesomeIcon icon={faUser} />
-              <span>My Profile</span>
+              <span>Profil</span>
             </li>
-            <li className="flex items-center gap-3 text-sm font-medium">
+            <li 
+              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2" 
+              onClick={() => handleNavigation('/dashboard/pengaturan')}
+            >
               <FontAwesomeIcon icon={faCog} />
-              <span>Account Settings</span>
+              <span>Pengaturan</span>
             </li>
           </ul>
-          <button className="flex items-center gap-3 text-sm font-medium px-3 py-2 hover:text-primary">
-            <FontAwesomeIcon icon={faSignOutAlt} />
-            <span>Log Out</span>
-          </button>
+          <ul className="flex flex-col gap-2 px-3 py-2">
+            <li 
+              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2 w-full text-left" 
+              onClick={() => handleNavigation('/logout')}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>Log Out</span>
+            </li>
+          </ul>
         </div>
       )}
     </div>
   );
 };
 
-export default DropdownProfile;
+export default DropdownProfil;

@@ -56,7 +56,7 @@ export default function SignIn(){
                             </div>
 
                             <div>
-                                <button type="submit" class="flex w-full justify-center rounded-full bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-bold text-white py-4 px-4">
+                                <button type="submit" class="flex w-full justify-center rounded-full bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-bold text-bromo-gray-50 py-4 px-4">
                                     Daftar
                                 </button>
                             </div>

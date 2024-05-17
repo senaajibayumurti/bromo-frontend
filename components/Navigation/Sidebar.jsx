@@ -18,11 +18,6 @@ const menuItems = [
         icon: faWarehouse,
     },
     {
-        menu: 'Klasifikasi',
-        link: '/dashboard/klasifikasi',
-        icon: faTableList,
-    },
-    {
         menu: 'Rekap Data',
         link: '/dashboard/rekap-data',
         icon: faListAlt,
@@ -47,7 +42,7 @@ export default function Sidebar() {
     const updateActiveMenu = () => {
         const currentPath = router.asPath;
         const active = menuItems.find(item => currentPath === item.link);
-        setActiveMenu(active ? active.link : '/dashboard/');
+        setActiveMenu(active ? active.link : null); // Mengatur activeMenu ke null jika tidak ada yang cocok
     };
 
     // Run once on component mount
@@ -61,8 +56,8 @@ export default function Sidebar() {
                 key={item.menu}
                 href={item.link}
                 className={`block w-64 py-3 ps-3 pe-6 mt-2 text-start rounded focus:outline-none transition-colors duration-300 ease-in-out ${
-                    activeMenu === item.link ? 'bg-bromo-green-1-500 text-bromo-gray-50' : 'bg-bromo-green-1-100 text-bromo-gray-900'
-                } hover:bg-bromo-green-1-400 hover:text-bromo-gray-50 focus:bg-bromo-green-1-500 focus:text-bromo-gray-50 active:bg-bromo-green-1-500 active:text-bromo-gray-50 flex items-center`}
+                    activeMenu === item.link ? 'bg-bromo-green-500 text-bromo-gray-50' : 'bg-bromo-green-100 text-bromo-gray-900'
+                } hover:bg-bromo-green-400 hover:text-bromo-gray-50 focus:bg-bromo-green-500 focus:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 flex items-center`}
             >
                 <FontAwesomeIcon icon={item.icon} className="mr-2" />
                 {item.menu}
@@ -73,7 +68,7 @@ export default function Sidebar() {
     return (
         <>
             <main>
-                <div className='flex flex-col h-full ps-6 pe-3 shadow-lg items-center bg-bromo-green-1-100'>
+                <div className='flex flex-col h-full ps-6 pe-3 shadow-lg items-center bg-bromo-green-100'>
                     <div className='w-full ps-3 py-8'>
                         <Logotype/>
                     </div>

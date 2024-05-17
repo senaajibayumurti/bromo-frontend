@@ -31,7 +31,7 @@ const packageData = [
 
 const TableThree = () => {
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
+    <div className="rounded-sm border border-stroke bg-bromo-gray-50 px-5 pb-2.5 pt-6 shadow-default sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
@@ -82,10 +82,10 @@ const TableThree = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5">
                   <div className="flex items-center space-x-3.5">
-                    <button className="px-4 py-2 font-medium text-white bg-green-500 rounded hover:bg-green-600">
+                    <button className="px-4 py-2 font-medium text-bromo-gray-50 bg-green-500 rounded hover:bg-green-600">
                       Buka
                     </button>
-                    <button className="px-4 py-2 font-medium text-white bg-red-500 rounded hover:bg-red-600">
+                    <button className="px-4 py-2 font-medium text-bromo-gray-50 bg-red-500 rounded hover:bg-red-600">
                       Hapus
                     </button>
                   </div>

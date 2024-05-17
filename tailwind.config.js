@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bromo-green-1': {
+        'bromo-green': {
           '50': '#f2fcf1',
           '100': '#defadf',
           '200': '#bff3c0',
@@ -22,7 +22,7 @@ module.exports = {
           '900': '#184f1c',
           '950': '#082b0a',
         },
-        'bromo-green-2': {
+        'bromo-success': {
           '50': '#ecfdf3',
           '100': '#d1fadf',
           '200': '#a8f2c6',
@@ -48,7 +48,7 @@ module.exports = {
           '900': '#6e4815',
           '950': '#402608',
         },
-        'bromo-orange': {
+        'bromo-info': {
           '50': '#fffbed',
           '100': '#fff7d4',
           '200': '#ffeba8',
@@ -74,6 +74,19 @@ module.exports = {
           '900': '#80231c',
           '950': '#460d09',
         },  
+        'bromo-error': {
+          '50': '#fdf3f3',
+          '100': '#fbe6e5',
+          '200': '#f8d1d0',
+          '300': '#f2b1af',
+          '400': '#e88481',
+          '500': '#d9534f',
+          '600': '#c73f3b',
+          '700': '#a7322e',
+          '800': '#8a2d2a',
+          '900': '#742a28',
+          '950': '#3e1211',
+        }, 
         'bromo-gray': {
           '50': '#f6f7f9',
           '100': '#edeef1',
@@ -87,6 +100,7 @@ module.exports = {
           '900': '#363a44',
           '950': '#24262d',
         },
+      
 
         // backgroundImage: {
         //   'bromo-gradient-to-r': 'linear-gradient(to right, #F2DC1B, #1E9722)', // Kiri ke kanan
@@ -99,5 +113,10 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
+  variants: {
+    scrollbar: ['rounded'],
+  },
 }

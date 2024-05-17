@@ -10,13 +10,13 @@ function DatasetItem({ label, value }) {
         type="text"
         value={value}
         readOnly
-        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
+        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-bromo-gray-50r dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
       />
     </div>
   );
 }
 
-export default function FormLayout() {
+export default function FormOne() {
   const dataset = {
     "Nama Kandang": "Kandang 1",
     "Kelembaban": "60%",
@@ -31,8 +31,8 @@ export default function FormLayout() {
 
   return (
     <div>
-        <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-            <h3 className="font-medium text-black dark:text-black">
+        <div className="border-b border-stroke px-6.5 py-4 m-2">
+            <h3 className="text-lg font-bold text-black">
             Klasifikasi
             </h3>
         </div>

@@ -17,7 +17,7 @@ export default function Home() {
                     <p className="text-bromo-gray-500">Broiler Monitoring, aplikasi yang dirancang untuk meningkatkan efektifitas pemantauan kandang ayam secara efektif dan efisen secara real-time.</p>
                   </article>  
                   <div className='mt-8'>
-                    <button type="button" class="inline-flex items-center text-white bg-gradient-to-r from-yellow-300 to-green-500 hover:bg-gradient-to-br active:bg-gradient-to-l font-medium rounded-full text-md px-8 py-4 text-center mr-2 mb-2">
+                    <button type="button" class="inline-flex items-center text-bromo-gray-50 bg-gradient-to-r from-yellow-300 to-green-500 hover:bg-gradient-to-br active:bg-gradient-to-l font-medium rounded-full text-md px-8 py-4 text-center mr-2 mb-2">
                       <Icon/>
                       <span>Masuk</span>
                     </button>
