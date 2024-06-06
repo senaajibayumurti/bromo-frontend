@@ -1,6 +1,7 @@
-import Topbar from '../components/Topbar_landingpage';
+import Topbar from '../components/TopBar/Topbar_landingpage';
 import Circle from '../components/Temp_circle';
 import Icon from '../components/Icon_arrow-right-end-on-rectangle';
+import Button from '../components/Button';
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
                   <article class="text-wrap">
                     <h1 className="text-4xl font-bold mb-4 text-green-600">Solusi Terbaik untuk Memantau Kandang Ayam Anda!</h1>
                     <p className="text-bromo-gray-500">Broiler Monitoring, aplikasi yang dirancang untuk meningkatkan efektifitas pemantauan kandang ayam secara efektif dan efisen secara real-time.</p>
-                  </article>  
+                  </article>
+                  <div>
+                    <Button label="Tombol"/>
+                  </div>
                   <div className='mt-8'>
                     <button type="button" class="inline-flex items-center text-bromo-gray-50 bg-gradient-to-r from-yellow-300 to-green-500 hover:bg-gradient-to-br active:bg-gradient-to-l font-medium rounded-full text-md px-8 py-4 text-center mr-2 mb-2">
                       <Icon/>

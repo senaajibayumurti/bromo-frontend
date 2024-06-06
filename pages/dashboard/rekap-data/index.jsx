@@ -1,10 +1,13 @@
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
-import TableThree from "../../../components/Tables/TableThree";
+import RoundedContainer from "../../../components/Layout/RoundedContainer";
+import TableRekapData from "../../../components/Tables/TableRekapData";
 
 export default function RekapData(children) {
     return (
         <DashboardLayout>
-            <TableThree/>
+            <RoundedContainer>
+                <TableRekapData/>
+            </RoundedContainer>
         </DashboardLayout>
     );
 }

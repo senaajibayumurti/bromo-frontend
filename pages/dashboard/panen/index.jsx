@@ -1,10 +1,13 @@
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
-import TableTwo from "../../../components/Tables/TableTwo";
+import RoundedContainer from "../../../components/Layout/RoundedContainer";
+import TablePanen from "../../../components/Tables/TablePanen";
 
 export default function Panen(children) {
     return (
         <DashboardLayout>
-            <TableTwo/>
+            <RoundedContainer>
+                <TablePanen/>
+            </RoundedContainer>
         </DashboardLayout>
     );
 }

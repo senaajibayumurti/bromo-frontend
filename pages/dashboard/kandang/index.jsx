@@ -1,10 +1,14 @@
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
-import TableOne from "../../../components/Tables/TableOne";
+import RoundedContainer from "../../../components/Layout/RoundedContainer";
+import TableFour from "../../../components/Tables/TableFour";
+import TableKandang from "../../../components/Tables/TableKandang";
 
 export default function Kandang(children) {
     return (
         <DashboardLayout>
-            <TableOne/>
+            <RoundedContainer>
+                <TableKandang/>
+            </RoundedContainer>
         </DashboardLayout>
     );
 }
