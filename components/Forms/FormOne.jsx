@@ -9,8 +9,8 @@ function DatasetItem({ label, value }) {
       <input
         type="text"
         value={value}
-        readOnly
-        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-bromo-gray-50r dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
+        // readOnly
+        className="w-full rounded ring-1 ring-bromo-green-200 bg-transparent px-5 py-3 text-black outline-none transition focus:ring-2 focus-within:ring-bromo-green-500 active:border-primary disabled:cursor-default disabled:bg-bromo-gray-50r dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
       />
     </div>
   );

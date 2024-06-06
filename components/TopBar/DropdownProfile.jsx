@@ -52,13 +52,6 @@ const DropdownProfil = () => {
               <FontAwesomeIcon icon={faUser} />
               <span>Profil</span>
             </li>
-            <li 
-              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2" 
-              onClick={() => handleNavigation('/dashboard/pengaturan')}
-            >
-              <FontAwesomeIcon icon={faCog} />
-              <span>Pengaturan</span>
-            </li>
           </ul>
           <ul className="flex flex-col gap-2 px-3 py-2">
             <li 
