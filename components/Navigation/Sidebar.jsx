@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'; // tambahkan impor ini
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faWarehouse, faListAlt, faEgg, faTableList, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faWarehouse, faListAlt, faEgg, faUsers } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import Logotype from './Topbar_landingpage';
+import Logotype from '../TopBar/Topbar_landingpage';
 
 // Menu items
 const menuItems = [
@@ -38,11 +38,23 @@ export default function Sidebar() {
     const router = useRouter();
     const [activeMenu, setActiveMenu] = useState('');
 
-    // Set active menu based on current URL
     const updateActiveMenu = () => {
         const currentPath = router.asPath;
-        const active = menuItems.find(item => currentPath === item.link);
-        setActiveMenu(active ? active.link : null); // Mengatur activeMenu ke null jika tidak ada yang cocok
+
+        // Modifikasi logika penentuan activeMenu
+        if (currentPath === '/dashboard/') {
+            setActiveMenu('/dashboard/');
+        } else if (currentPath === '/dashboard/kandang') {
+            setActiveMenu('/dashboard/kandang');
+        } else if (currentPath === '/dashboard/rekap-data') {
+            setActiveMenu('/dashboard/rekap-data');
+        } else if (currentPath === '/dashboard/panen') {
+            setActiveMenu('/dashboard/panen');
+        } else if (currentPath === '/dashboard/pekerja') {
+            setActiveMenu('/dashboard/pekerja');
+        } else {
+            setActiveMenu(''); // Tidak ada item yang set active jika URL diluar kriteria
+        }
     };
 
     // Run once on component mount
@@ -55,9 +67,9 @@ export default function Sidebar() {
             <Link
                 key={item.menu}
                 href={item.link}
-                className={`block w-64 py-3 ps-3 pe-6 mt-2 text-start rounded focus:outline-none transition-colors duration-300 ease-in-out ${
-                    activeMenu === item.link ? 'bg-bromo-green-500 text-bromo-gray-50' : 'bg-bromo-green-100 text-bromo-gray-900'
-                } hover:bg-bromo-green-400 hover:text-bromo-gray-50 focus:bg-bromo-green-500 focus:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 flex items-center`}
+                className={`block w-64 py-3 ps-6 pe-6 mt-2 text-start rounded focus:outline-none transition-colors duration-300 ease-in-out ${
+                    activeMenu === item.link ? 'bg-bromo-green-500 text-bromo-neutral-50' : 'bg-bromo-green-100 text-bromo-neutral-900'
+                } hover:bg-bromo-green-400 hover:text-bromo-neutral-50 focus:bg-bromo-green-500 focus:text-bromo-neutral-50 active:bg-bromo-green-500 active:text-bromo-neutral-50 flex items-center`}
             >
                 <FontAwesomeIcon icon={item.icon} className="mr-2" />
                 {item.menu}
