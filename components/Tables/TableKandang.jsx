@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "../Button";
 
 const TableKandang = () => {
   const [kandangData, setKandangData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -35,17 +36,66 @@ const TableKandang = () => {
         // Ensure we are extracting the 'data' key from the result
         const { data } = result;
         setKandangData(data);
+        setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error("Error fetching data: ", error);
         setError(error.message);
+        setLoading(false); // Set loading to false if there's an error
       }
     };
     fetchData();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="max-w-full overflow-x-auto">
+        <table className="w-full table-auto">
+          <thead>
+            <tr className="bg-gray-2 text-left dark:bg-meta-4">
+              <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
+                No
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Kandang
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Tanggal
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Pakan
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Minum
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Populasi
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Jumlah Kematian
+              </th>
+              <th className="px-4 py-4 font-medium text-black">
+                Aksi
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="8" className="text-center py-4">
+                <p className="text-gray-500">Loading...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="text-red-500">Error: {error}</p>; // Display error message if fetching fails
+  }
+
   return (
     <div className="max-w-full overflow-x-auto">
-      {error && <p className="text-red-500">Error: {error}</p>}
       <table className="w-full table-auto">
         <thead>
           <tr className="bg-gray-2 text-left dark:bg-meta-4">

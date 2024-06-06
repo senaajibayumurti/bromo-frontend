@@ -37,7 +37,41 @@ const TablePekerja = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>; // Placeholder for loading indicator
+    return (
+      <div className="max-w-full overflow-x-auto">
+        <table className="w-full table-auto">
+          <thead>
+            <tr className="bg-gray-2 text-left">
+              <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
+                No
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Nama Lengkap
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Username
+              </th>
+              <th className="min-w-[200px] px-4 py-4 font-medium text-black">
+                Email
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                Status
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+                No Telepon
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="6" className="text-center py-4">
+                <p className="text-gray-500">Loading...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   if (error) {
