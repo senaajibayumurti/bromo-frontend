@@ -1,90 +1,117 @@
-import { useState, useRef, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Button from "../Button";
 
-const DropdownKandang = ({ onSelectKandang }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedKandang, setSelectedKandang] = useState(null);
-  const [dataKandang, setDataKandang] = useState([]);
-
-  const trigger = useRef(null);
-  const dropdown = useRef(null);
+const TableKandang = () => {
+  const [kandangData, setKandangData] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Fetch data from API
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/kandang'); // Ganti dengan endpoint API yang sesuai
-        const data = await response.json();
-        setDataKandang(data);
-        setSelectedKandang(data[0] || null);
+        // Ambil token dari localStorage
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          throw new Error('User is not authenticated');
+        }
+
+        const response = await fetch('http://toko.technosv.my.id/api/data-kandang', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Kirim token autentikasi
+          },
+        });
+
+        // Check if response is JSON
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          const text = await response.text(); // Get the text response for debugging
+          throw new Error(`Received non-JSON response: ${text}`);
+        }
+
+        const result = await response.json();
+
+        // Ensure we are extracting the 'data' key from the result
+        const { data } = result;
+        setKandangData(data);
       } catch (error) {
-        console.error('Error fetching data: ', error);
+        console.error("Error fetching data: ", error);
+        setError(error.message);
       }
     };
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!dropdownOpen || !dropdown.current || dropdown.current.contains(target) || trigger.current.contains(target))
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  }, [dropdownOpen]);
-
-  useEffect(() => {
-    // Call the onSelectKandang function with the selected kandang when it changes
-    if (selectedKandang) {
-      onSelectKandang(selectedKandang);
-    }
-  }, [selectedKandang, onSelectKandang]);
-
   return (
-    <div className="relative w-full">
-      <div
-        ref={trigger}
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex justify-between items-center font-medium text-bromo-neutral-50 p-4 bg-bromo-green-500 text-bromo-gray-900 cursor-pointer rounded-lg border border-stroke"
-      >
-        <div>
-          <span className="block text-lg font-bold">{selectedKandang ? selectedKandang.kandang : "-"}</span>
-          <span className="block text-sm">Alamat: {selectedKandang ? selectedKandang.alamat : "-"}</span>
-          <span className="block text-sm">Luas: {selectedKandang ? selectedKandang.luas : "-"}</span>
-        </div>
-        <FontAwesomeIcon icon={faAngleDown}/>
-      </div>
-
-      {dropdownOpen && (
-        <div
-          ref={dropdown}
-          className="absolute left-0 mt-2 w-full bg-neutral-50 rounded-md border border-gray-200 shadow-default z-10"
-        >
-          <ul>
-            {dataKandang.length > 0 ? (
-              dataKandang.map((kandang, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setSelectedKandang(kandang);
-                    setDropdownOpen(false);
-                  }}
-                  className="px-4 py-2 hover:bg-bromo-neutral-1-400 cursor-pointer"
-                >
-                  <span className="block text-lg font-medium">{kandang.kandang}</span>
-                  <span className="block text-sm">Alamat: {kandang.alamat}</span>
-                  <span className="block text-sm">Luas: {kandang.luas}</span>
-                </li>
-              ))
-            ) : (
-              <li className="px-4 py-2">No data available</li>
-            )}
-          </ul>
-        </div>
-      )}
+    <div className="max-w-full overflow-x-auto">
+      {error && <p className="text-red-500">Error: {error}</p>}
+      <table className="w-full table-auto">
+        <thead>
+          <tr className="bg-gray-2 text-left dark:bg-meta-4">
+            <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
+              No
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Kandang
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Tanggal
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Pakan
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Minum
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Populasi
+            </th>
+            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
+              Jumlah Kematian
+            </th>
+            <th className="px-4 py-4 font-medium text-black">
+              Aksi
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {kandangData.map((kandangItem, key) => (
+            <tr key={key}>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark xl:pl-11">
+                <p className="text-black">{key + 1}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{kandangItem.kandang}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{new Date(kandangItem.date).toLocaleDateString()}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{kandangItem.pakan}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{kandangItem.minum}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{kandangItem.populasi}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-black">{kandangItem.jumlah_kematian}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <div className="flex items-center space-x-3.5">
+                  <Link href={'/dashboard'}>
+                    <Button label="Edit" type={'success'}/>
+                  </Link>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default DropdownKandang;
+export default TableKandang;
