@@ -4,9 +4,25 @@ import { faUser, faCog, faSignOutAlt, faAngleDown } from "@fortawesome/free-soli
 
 const DropdownProfil = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const [dataKandang, setDataKandang] = useState([]);
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://toko.technosv.my.id/api/data-kandang');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setDataKandang(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -43,15 +59,19 @@ const DropdownProfil = () => {
       </div>
 
       {dropdownOpen && (
-        <div ref={dropdown} className="absolute right-0 mt-4 w-48 bg-bromo-green-50 rounded-sm border border-gray-300 shadow-default">
-          <ul className="flex flex-col gap-2 border-b border-gray-300 px-3 py-2">
-            <li 
-              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2" 
-              onClick={() => handleNavigation('/dashboard/profil')}
-            >
-              <FontAwesomeIcon icon={faUser} />
-              <span>Profil</span>
-            </li>
+        <div ref={dropdown} className="absolute right-0 mt-4 w-72 bg-bromo-green-50 rounded-sm border border-gray-300 shadow-default">
+          <ul className="flex flex-col gap-2 border-b border-gray-300">
+            {dataKandang.map((kandang) => (
+              <li 
+                key={kandang.id}
+                className="flex items-center text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2"
+                onClick={() => handleNavigation(`/dashboard/kandang/${kandang.id}`)}
+              >
+                <div className="flex-1">{kandang.nama}</div>
+                <div className="text-xs text-bromo-gray-500">{kandang.alamat}</div>
+                <div className="text-xs text-bromo-gray-500">{kandang.luas}</div>
+              </li>
+            ))}
           </ul>
           <ul className="flex flex-col gap-2 px-3 py-2">
             <li 
