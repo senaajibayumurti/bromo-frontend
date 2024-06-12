@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import DropdownKandang from "../../components/Dropdown/DropdownKandang";
 import FormKlasifikasi from "../../components/Forms/FormKlasifikasi";
 import RoundedContainer from "../../components/Layout/RoundedContainer";
-import DonutChart from "../../components/Charts/DonutChart";
 
 const Beranda = () => {
+    const [selectedKandang, setSelectedKandang] = useState(null);
+
     return (
         <DashboardLayout>
-            <DropdownKandang s/>
+            <DropdownKandang setSelectedKandang={setSelectedKandang} />
             <RoundedContainer label={'Forecasting'}>
                 {/* <DonutChart /> */}
             </RoundedContainer>
             <RoundedContainer label={'Klasifikasi'}>
-                <FormKlasifikasi/>
+                <FormKlasifikasi idKandang={selectedKandang ? selectedKandang.id_kandang : null} />
             </RoundedContainer>
         </DashboardLayout>
     );

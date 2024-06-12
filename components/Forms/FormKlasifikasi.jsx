@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const FormKlasifikasi = () => {
+const FormKlasifikasi = ({ idKandang }) => {
   const [data, setData] = useState({
     suhu: '',
     kelembaban: '',
@@ -14,6 +14,10 @@ const FormKlasifikasi = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!idKandang) {
+      return;
+    }
+
     const fetchData = async () => {
       try {
         // Get token from localStorage
@@ -22,14 +26,8 @@ const FormKlasifikasi = () => {
           throw new Error('User is not authenticated');
         }
 
-        // Get user ID from localStorage
-        const id = localStorage.getItem('userId');
-        if (!id) {
-          throw new Error('User ID is not available');
-        }
-
         console.log('Token:', token);
-        console.log('UserID:', id);
+        console.log('Kandang ID:', idKandang);
 
         const headers = {
           'Content-Type': 'application/json',
@@ -38,9 +36,9 @@ const FormKlasifikasi = () => {
 
         // Fetch data for suhu, kelembaban, amonia, and other relevant data
         const [suhuResponse, amoniaResponse, kandangResponse] = await Promise.all([
-          fetch(`http://toko.technosv.my.id/api/sensor-suhu-kelembaban/${id}`, { headers }),
-          fetch(`http://toko.technosv.my.id/api/sensor-amoniak/${id}`, { headers }),
-          fetch(`http://toko.technosv.my.id/api/data-kandang-by-kandang/${id}`, { headers }),
+          fetch(`http://toko.technosv.my.id/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
+          fetch(`http://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, { headers }),
+          fetch(`http://toko.technosv.my.id/api/data-kandang-by-kandang/${idKandang}`, { headers }),
         ]);
 
         // Check if all responses are OK
@@ -73,7 +71,7 @@ const FormKlasifikasi = () => {
     };
 
     fetchData();
-  }, []);
+  }, [idKandang]);
 
   if (loading) {
     return <p>Loading...</p>;

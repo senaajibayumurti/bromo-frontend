@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-const DropdownKandang = () => {
+const DropdownKandang = ({ setSelectedKandang }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedKandang, setSelectedKandang] = useState(null);
   const [dataKandang, setDataKandang] = useState([]);
+  const [selectedKandang, setLocalSelectedKandang] = useState(null);
   const [error, setError] = useState(null);
 
   const trigger = useRef(null);
@@ -19,7 +19,7 @@ const DropdownKandang = () => {
           throw new Error('User is not authenticated');
         }
 
-        const response = await fetch('http://toko.technosv.my.id/api/owner/kandang', {
+        const response = await fetch('http://toko.technosv.my.id/api/data-kandang', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -32,7 +32,12 @@ const DropdownKandang = () => {
 
         const data = await response.json();
         setDataKandang(data.data);
-        setSelectedKandang(data.data[0] || null); // Select first kandang as default
+        if (data.data[0]) {
+          setLocalSelectedKandang(data.data[0]);
+          setSelectedKandang(data.data[0]);
+          localStorage.setItem('selectedKandangId', data.data[0].id_kandang); // Corrected to use 'id_kandang'
+          console.log('Selected Kandang ID:', data.data[0].id_kandang); // Corrected to use 'id_kandang'
+        }
       } catch (error) {
         console.error('Error fetching data: ', error);
         setError(error.message || 'Failed to fetch data');
@@ -45,7 +50,7 @@ const DropdownKandang = () => {
     };
 
     fetchData();
-  }, []);
+  }, [setSelectedKandang]);
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -69,8 +74,8 @@ const DropdownKandang = () => {
         className="flex justify-between items-center font-medium text-bromo-neutral-50 p-4 bg-bromo-green-500 text-bromo-gray-900 cursor-pointer rounded-lg border border-stroke"
       >
         <div>
-          <span className="block text-lg font-bold">{selectedKandang ? selectedKandang.nama_kandang : "-"}</span>
-          <span className="block text-sm">Alamat: {selectedKandang ? selectedKandang.alamat_kandang : "-"}</span>
+          <span className="block text-lg font-bold">{selectedKandang ? selectedKandang.kandang : "-"}</span>
+          <span className="block text-sm">Populasi: {selectedKandang ? selectedKandang.populasi : "-"}</span>
           <span className="block text-sm">Luas: {selectedKandang ?.luas_kandang} m²</span>
         </div>
         <FontAwesomeIcon icon={faAngleDown}/>
@@ -87,12 +92,15 @@ const DropdownKandang = () => {
                 <li
                   key={index}
                   onClick={() => {
+                    setLocalSelectedKandang(kandang);
                     setSelectedKandang(kandang);
+                    localStorage.setItem('selectedKandangId', kandang.id_kandang); // Corrected to use 'id_kandang'
+                    console.log('Selected Kandang ID:', kandang.id_kandang); // Corrected to use 'id_kandang'
                     setDropdownOpen(false);
                   }}
                   className="px-4 py-2 hover:bg-bromo-neutral-1-400 cursor-pointer border-b border-b-bromo-green-200"
                 >
-                  <span className="block text-lg font-medium">{kandang.nama_kandang}</span>
+                  <span className="block text-lg font-medium">{kandang.kandang}</span>
                 </li>
               ))
             ) : (
