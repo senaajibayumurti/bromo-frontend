@@ -82,7 +82,7 @@ const TablePekerja = () => {
     <div className="max-w-full overflow-x-auto">
       <table className="w-full table-auto">
         <thead>
-          <tr className="bg-gray-2 text-left">
+          <tr className="text-left">
             <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
               No
             </th>
