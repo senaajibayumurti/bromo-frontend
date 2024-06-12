@@ -1,14 +1,16 @@
+import Link from 'next/link';
+
 export default function SignIn(){
     return (
         <div class="flex h-screen">
             <div class="w-3/4 flex justify-center items-center bg-green-600">
-                <img class="h-full w-full max-w-full object-cover" src="" alt="BroMo.png"/>
+                <img class="h-auto w-96 max-w-full object-center" src="/ayam.png" alt="BroMo.png"/>
             </div>
             <div class="w-1/4 bg-gray-100 flex items-center justify-center px-5">
                 <div class="w-full max-w-sm">
                     <div class="sm:mx-auto sm:w-full">
                         <div className="text-5xl font-bold">Sign In</div>
-                        <div className="text-4xl font-medium">Join us today</div>
+                        <div className="text-4xl font-medium">Selamat datang!</div>
                     </div>
                     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form class="space-y-6" action="#" method="POST">
@@ -56,14 +58,14 @@ export default function SignIn(){
                             </div>
 
                             <div>
-                                <button type="submit" class="flex w-full justify-center rounded-full bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-bold text-bromo-gray-50 py-4 px-4">
+                                <button type="submit" class="flex w-full justify-center rounded-full bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-sm font-bold text-bromo-neutral-50 py-4 px-4">
                                     Daftar
                                 </button>
                             </div>
                         </form>
                         <p class="mt-10 text-center text-sm text-gray-500">
                             Sudah punya akun?
-                            <a href="#" class="font-semibold text-green-600 hover:text-green-500 underline"> Masuk di sini.</a>
+                            <Link href="/login" class="font-semibold text-green-600 hover:text-green-500 underline"> Masuk di sini.</Link>
                         </p>
                     </div>
                 </div>

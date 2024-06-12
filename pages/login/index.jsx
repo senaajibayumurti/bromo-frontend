@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import TimedOverlay from '../../components/Layout/TimedOverlay';
+import Link from 'next/link';
 
 export default function LogIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -20,15 +23,27 @@ export default function LogIn() {
             const data = await response.json();
 
             if (response.ok) {
-                // Simpan token ke localStorage
-                localStorage.setItem('accessToken', data.token);
+                console.log('Login berhasil!, received data:', data);
+                if (data.token && data.id) {
+                    // Simpan token dan userId ke localStorage
+                    localStorage.setItem('accessToken', data.token);
+                    localStorage.setItem('userId', data.id);
 
-                // Redirect ke halaman dashboard atau halaman yang diinginkan setelah login berhasil
-                router.push('/dashboard/');
+                    // Tampilkan overlay success
+                    setShowSuccessOverlay(true);
+
+                    // Redirect ke halaman dashboard setelah beberapa detik
+                    setTimeout(() => {
+                        router.push('/dashboard/');
+                    }, 2000); // Waktu overlay muncul
+                } else {
+                    throw new Error('Invalid response format');
+                }
             } else {
                 setError(data.message || 'Login failed');
             }
         } catch (error) {
+            console.error('Login error:', error);
             setError('An error occurred');
         }
     };
@@ -36,13 +51,13 @@ export default function LogIn() {
     return (
         <div className="flex h-screen">
             <div className="w-3/4 flex justify-center items-center bg-green-600">
-                <img className="h-full w-full max-w-full object-cover" src="" alt="BroMo.png" />
+            <img class="h-auto w-96 max-w-full object-center" src="/ayam.png" alt="BroMo.png"/>
             </div>
             <div className="w-1/4 bg-gray-100 flex items-center justify-center px-10">
                 <div className="w-full max-w-xl">
                     <div className="sm:mx-auto sm:w-full">
                         <div className="text-5xl font-bold">Log In</div>
-                        <div className="text-4xl font-medium">Welcome back</div>
+                        <div className="text-4xl font-medium">Selamat datang kembali!</div>
                     </div>
                     <div className="mt-10">
                         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -84,12 +99,19 @@ export default function LogIn() {
                             </div>
                         </form>
                         <p className="mt-10 text-center text-sm text-gray-500">
-                            Don't have an account yet?
-                            <a href="#" className="font-semibold text-green-600 hover:text-green-500 underline"> Sign up here.</a>
+                            Belum punya akun?
+                            <Link href="/signin" class="font-semibold text-green-600 hover:text-green-500 underline"> Bikin di sini.</Link>
                         </p>
                     </div>
                 </div>
             </div>
+            {showSuccessOverlay && (
+                <TimedOverlay 
+                    teks="Login berhasil!"
+                    type="success"
+                    onClose={() => setShowSuccessOverlay(false)}
+                />
+            )}
         </div>
     );
 }
