@@ -20,6 +20,7 @@ const FormKlasifikasi = ({ idKandang }) => {
 
     const fetchData = async () => {
       try {
+        setLoading(true);  // Set loading true when fetching new data
         // Get token from localStorage
         const token = localStorage.getItem('accessToken');
         if (!token) {
@@ -38,7 +39,7 @@ const FormKlasifikasi = ({ idKandang }) => {
         const [suhuResponse, amoniaResponse, kandangResponse] = await Promise.all([
           fetch(`http://toko.technosv.my.id/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
           fetch(`http://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, { headers }),
-          fetch(`http://toko.technosv.my.id/api/data-kandang-by-kandang/${idKandang}`, { headers }),
+          fetch(`http://toko.technosv.my.id/api/data-kandang/${idKandang}`, { headers }),
         ]);
 
         // Check if all responses are OK
@@ -62,7 +63,7 @@ const FormKlasifikasi = ({ idKandang }) => {
           populasi: kandangData.data.populasi || '',
         });
 
-        setLoading(false);
+        setLoading(false);  // Set loading false after data is loaded
       } catch (error) {
         console.error("Error fetching data: ", error);
         setError(error.message);
@@ -74,7 +75,7 @@ const FormKlasifikasi = ({ idKandang }) => {
   }, [idKandang]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="text-gray-500">Loading...</p>;
   }
 
   if (error) {
