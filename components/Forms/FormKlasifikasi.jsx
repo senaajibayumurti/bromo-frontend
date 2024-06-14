@@ -39,7 +39,7 @@ const FormKlasifikasi = ({ idKandang }) => {
         const [suhuResponse, amoniaResponse, kandangResponse] = await Promise.all([
           fetch(`http://toko.technosv.my.id/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
           fetch(`http://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, { headers }),
-          fetch(`http://toko.technosv.my.id/api/data-kandang/${idKandang}`, { headers }),
+          fetch(`http://toko.technosv.my.id/api/data-kandang-by-kandang/${idKandang}`, { headers }),
         ]);
 
         // Check if all responses are OK
@@ -75,7 +75,7 @@ const FormKlasifikasi = ({ idKandang }) => {
   }, [idKandang]);
 
   if (loading) {
-    return <p className="text-gray-500">Loading...</p>;
+    return <p className="text-gray-500">Memuat...</p>;
   }
 
   if (error) {
