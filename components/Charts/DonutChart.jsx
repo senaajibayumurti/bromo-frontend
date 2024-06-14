@@ -1,25 +1,41 @@
-// components/DonutChart.js
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart, ArcElement } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import classNames from 'classnames';
 
-// Register ArcElement globally
-Chart.register(ArcElement);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DonutChart = ({ data }) => {
-  if (!data) return null;
+const DonutChart = ({ color, value, label }) => {
+  // Dummy div to get the computed color value from Tailwind class
+  const dummyDiv = document.createElement('div');
+  dummyDiv.className = classNames(color);
+  document.body.appendChild(dummyDiv);
+  const computedColor = getComputedStyle(dummyDiv).backgroundColor;
+  document.body.removeChild(dummyDiv);
 
-  const { labels, datasets } = data;
+  const data = {
+    labels: ['Value', 'Remaining'],
+    datasets: [
+      {
+        data: [value, 100 - value],
+        backgroundColor: [computedColor, '#E0E0E0'],
+        hoverBackgroundColor: [computedColor, '#E0E0E0'],
+      },
+    ],
+  };
 
   const options = {
-    maintainAspectRatio: false,
     responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
     plugins: {
       legend: {
-        position: 'bottom',
-        labels: {
-          font: {
-            size: 14,
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
           },
         },
       },
@@ -27,8 +43,16 @@ const DonutChart = ({ data }) => {
   };
 
   return (
-    <div style={{ height: '300px', width: '300px' }}>
-      <Doughnut data={{ labels, datasets }} options={options} />
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative w-48 h-48">
+        <Doughnut data={data} options={options} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl text-center">
+          {value}%
+        </div>
+      </div>
+      <div className="text-center font-bold mt-2">
+        {label}
+      </div>
     </div>
   );
 };
