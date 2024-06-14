@@ -20,7 +20,7 @@ const Button = ({ label, onClick, type, disabled }) => {
     return (
         <button
             type="button"
-            className={`px-3 py-1 rounded-md text-sm ${buttonStyle} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`px-3 py-1 rounded-lg text-sm ${buttonStyle} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={onClick}
             disabled={disabled}
         >
