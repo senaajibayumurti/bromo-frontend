@@ -13,6 +13,7 @@
     "@nextui-org/theme": "^2.2.5",
     "apexcharts": "^3.49.1",
     "chart.js": "^4.4.3",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.2.10",
     "next": "latest",
     "react": "18.2.0",
