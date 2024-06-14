@@ -72,7 +72,7 @@ const TableRekapData = () => {
           {loading ? (
             <tr>
               <td colSpan="5" className="text-center py-4">
-                <p className="text-gray-500">Loading...</p>
+                <p className="text-gray-500">Memuat...</p>
               </td>
             </tr>
           ) : (
@@ -92,7 +92,6 @@ const TableRekapData = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5">
                   <div className="flex items-center space-x-3.5">
-                    <Button label='Buka' type={'success'}/>
                     <Button label='Hapus' type={'error'}/>
                   </div>
                 </td>

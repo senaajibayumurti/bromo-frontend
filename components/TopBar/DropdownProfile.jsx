@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faCog, faSignOutAlt, faAngleDown, faPerson } from "@fortawesome/free-solid-svg-icons";
-import Overlay from "../Layout/Overlay"; // Pastikan path impor sesuai dengan lokasi file Overlay
+import Overlay from "../Layout/Overlay";
 import TimedOverlay from "../Layout/TimedOverlay";
 
 const DropdownProfil = () => {
@@ -97,17 +97,17 @@ const DropdownProfil = () => {
       </div>
 
       {dropdownOpen && (
-        <div ref={dropdown} className="absolute right-0 mt-4 w-72 bg-bromo-green-50 rounded-sm border border-gray-300 shadow-default">
-          <ul className="flex flex-col gap-2 px-3 py-2">
+        <div ref={dropdown} className="absolute right-0 mt-4 w-72 bg-bromo-green-100 rounded-lg border border-bromo-green-200 shadow-default">
+          <ul className="flex flex-col">
             <li 
-              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2 w-full text-left" 
+              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-100 text-bromo-gray-900 hover:bg-bromo-green-500 hover:text-bromo-neutral-50 active:bg-bromo-green-1000 active:text-bromo-neutral-50 p-2 w-full text-left" 
               onClick={() => handleNavigation('/dashboard/profil')}
             >
               <FontAwesomeIcon icon={faPerson} />
               <span>Profile</span>
             </li>
             <li 
-              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-50 text-bromo-gray-900 hover:bg-bromo-green-400 hover:text-bromo-gray-50 active:bg-bromo-green-500 active:text-bromo-gray-50 p-2 w-full text-left" 
+              className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-100 text-bromo-gray-900 hover:bg-bromo-green-500 hover:text-bromo-neutral-50 active:bg-bromo-green-1000 active:text-bromo-neutral-50 p-2 w-full text-left" 
               onClick={handleLogout}
             >
               <FontAwesomeIcon icon={faSignOutAlt} />

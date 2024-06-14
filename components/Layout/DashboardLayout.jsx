@@ -1,4 +1,4 @@
-import React from 'react'; // Import React agar dapat menggunakan JSX
+import React from 'react';
 
 import Topbar_dashboard from "../TopBar/Topbar_dashboard";
 import Sidebar from "../Navigation/Sidebar";

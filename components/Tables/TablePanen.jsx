@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Button from '../Button';
 
 const TablePanen = () => {
   const [panenData, setPanenData] = useState([]);
@@ -68,7 +69,7 @@ const TablePanen = () => {
         {loading ? (
             <tr>
               <td colSpan="7" className="text-center py-4">
-                <p className="text-gray-500">Loading...</p>
+                <p className="text-gray-500">Memuat...</p>
               </td>
             </tr>
           ) : panenData.map((packageItem, key) => (
@@ -80,27 +81,23 @@ const TablePanen = () => {
                 <p className="text-black">{packageItem.kandang}</p>
               </td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.tanggalMulai}</p>
+                <p className="text-black">{packageItem.tanggal_mulai}</p>
               </td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.tanggalPanen}</p>
+                <p className="text-black">{packageItem.tanggal_panen}</p>
               </td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.jumlahPanen}</p>
+                <p className="text-black">{packageItem.jumlah_panen}</p>
               </td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.bobotTotal}</p>
+                <p className="text-black">{packageItem.bobot_total}</p>
               </td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <div className="flex items-center space-x-3.5">
-                  <button className="px-4 py-2 font-medium text-bromo-gray-50 bg-green-500 rounded hover:bg-green-600">
-                    Buka
-                  </button>
-                  <button className="px-4 py-2 font-medium text-bromo-gray-50 bg-red-500 rounded hover:bg-red-600">
-                    Hapus
-                  </button>
-                </div>
-              </td>
+                  <div className="flex items-center space-x-3.5">
+                    <Button label='Unduh' type={'success'}/>
+                    <Button label='Hapus' type={'error'}/>
+                  </div>
+                </td>
             </tr>
           ))}
         </tbody>

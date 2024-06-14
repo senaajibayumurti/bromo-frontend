@@ -72,7 +72,7 @@ const TableKandang = () => {
           {loading ? (
             <tr>
               <td colSpan="7" className="text-center py-4">
-                <p className="text-gray-500">Loading...</p>
+                <p className="text-gray-500">Memuat...</p>
               </td>
             </tr>
           ) : kandangData.map((item, index) => (

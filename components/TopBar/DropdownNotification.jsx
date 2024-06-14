@@ -42,25 +42,25 @@ export default function DropdownNotification() {
       {dropdownOpen && (
         <div
           ref={dropdown}
-          className="absolute -right-27 mt-2.5 px-4 flex flex-col rounded-sm border border-stroke bg-bromo-green-50 shadow-default right-0 w-80 max-h-60 overflow-y-auto"
+          className="absolute -right-27 mt-2.5 px-4 flex flex-col rounded-sm border border-bromo-green-200 bg-bromo-green-100 shadow-default right-0 w-80 max-h-60 overflow-y-auto"
         >
           <div className="px-4.5 py-3">
             <h5 className="text-lg font-medium text-bodydark2">Notifikasi</h5>
           </div>
           <ul>
-            <li className="border-t border-stroke px-4.5 py-3 hover:bg-gray-2">
+            <li className="border-t border-bromo-green-200 px-4.5 py-3 hover:bg-gray-2">
               <p className="text-sm text-black">Notifikasi 1</p>
               <p className="text-xs">12 Mei, 2024</p>
             </li>
-            <li className="border-t border-stroke px-4.5 py-3 hover:bg-gray-2">
+            <li className="border-t border-bromo-green-200 px-4.5 py-3 hover:bg-gray-2">
               <p className="text-sm text-black">Notifikasi 2</p>
               <p className="text-xs">10 Mei, 2024</p>
             </li>
-            <li className="border-t border-stroke px-4.5 py-3 hover:bg-gray-2">
+            <li className="border-t border-bromo-green-200 px-4.5 py-3 hover:bg-gray-2">
               <p className="text-sm text-black">Anggap saja ini notifikasi</p>
               <p className="text-xs">08 Mei, 2024</p>
             </li>
-            <li className="border-t border-stroke px-4.5 py-3 hover:bg-gray-2">
+            <li className="border-t border-bromo-green-200 px-4.5 py-3 hover:bg-gray-2">
               <p className="text-sm text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam nemo quod quibusdam nisi voluptatum dolorum autem fuga, est magnam sed asperiores eum qui eius similique culpa tempore aliquid minima! Provident.</p>
               <p className="text-xs">06 Mei, 2024</p>
             </li>

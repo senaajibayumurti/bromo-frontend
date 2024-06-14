@@ -65,7 +65,7 @@ const TablePekerja = () => {
           <tbody>
             <tr>
               <td colSpan="6" className="text-center py-4">
-                <p className="text-gray-500">Loading...</p>
+                <p className="text-gray-500">Memuat...</p>
               </td>
             </tr>
           </tbody>
