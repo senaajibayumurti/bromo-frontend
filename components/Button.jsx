@@ -14,7 +14,7 @@ const Button = ({ label, onClick, type, disabled }) => {
             buttonStyle = 'bg-bromo-error-500 hover:bg-bromo-error-600 active:bg-bromo-error-700 text-bromo-neutral-50';
             break;
         default:
-            buttonStyle = 'bg-bromo-green-500 hover:bg-bromo-green-600 active:bg-bromo-green-700 text-bromo-neutral-50';
+            buttonStyle = 'bg-bromo-green-500 hover:bg-bromo-green-600 active:bg-bromo-green-500 text-bromo-neutral-50';
     }
 
     return (

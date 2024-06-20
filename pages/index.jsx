@@ -25,7 +25,7 @@ export default function Home() {
               <div className="mt-8">
                 <a
                   href="/signin"
-                  className="inline-flex items-center text-bromo-neutral-50 font-semibold bg-gradient-to-r from-yellow-300 to-green-500 hover:bg-gradient-to-br active:bg-gradient-to-l font-medium rounded-full text-md px-8 py-4 text-center mr-2 mb-2"
+                  className="inline-flex items-center text-bromo-neutral-50 font-semibold bg-gradient-to-r from-yellow-300 to-green-500 hover:bg-gradient-to-br active:bg-gradient-to-l rounded-full text-md px-8 py-4 text-center mr-2 mb-2"
                 >
                   <Icon />
                   <span>Masuk</span>
