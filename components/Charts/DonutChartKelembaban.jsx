@@ -6,14 +6,19 @@ import classNames from 'classnames';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChartKelembaban = ({ idKandang }) => {
-  const [value, setValue] = useState(0); // Default humidity value
+  const [value, setValue] = useState(0); // Initialize with default humidity value 0
   const [computedColor, setComputedColor] = useState('#00FF00'); // Default color
+  const [isLoading, setIsLoading] = useState(true); // Track loading state
 
   useEffect(() => {
-    // Fetch humidity data based on idKandang
-    const fetchData = async () => {
-      if (!idKandang) return;
+    if (!idKandang) {
+      setValue(0); // Set to 0 if no id is provided
+      setIsLoading(false);
+      return;
+    }
 
+    setIsLoading(true); // Set loading to true when starting fetch
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('accessToken');
         if (!token) {
@@ -32,9 +37,12 @@ const DonutChartKelembaban = ({ idKandang }) => {
         }
 
         const data = await response.json();
-        setValue(data.data.kelembaban || 0);
+        setValue(data.data ? data.data.kelembaban : 0);
+        setIsLoading(false); // Set loading to false after fetching
       } catch (error) {
         console.error('Error fetching humidity data:', error);
+        setValue(0); // Set value to 0 in case of error
+        setIsLoading(false);
       }
     };
 
@@ -42,20 +50,28 @@ const DonutChartKelembaban = ({ idKandang }) => {
   }, [idKandang]);
 
   useEffect(() => {
-    // Dummy div to get the computed color value from Tailwind class
+    let colorClass;
+    if (value >= 60 && value <= 70) {
+      colorClass = 'bg-bromo-green-500';
+    } else if ((value >= 55 && value < 60) || (value > 70 && value <= 75)) {
+      colorClass = 'bg-bromo-yellow-500';
+    } else {
+      colorClass = 'bg-bromo-red-500';
+    }
+
     const dummyDiv = document.createElement('div');
-    dummyDiv.className = classNames('bg-bromo-green-500');
+    dummyDiv.className = classNames(colorClass);
     document.body.appendChild(dummyDiv);
     const color = getComputedStyle(dummyDiv).backgroundColor;
     document.body.removeChild(dummyDiv);
     setComputedColor(color);
-  }, []);
+  }, [value]);
 
   const data = {
     labels: ['Kelembaban', 'Remaining'],
     datasets: [
       {
-        data: [value, 100 - value],
+        data: isLoading ? [0, 100] : [value, 100 - value], // Adjust chart data based on loading state
         backgroundColor: [computedColor, '#E0E0E0'],
         hoverBackgroundColor: [computedColor, '#E0E0E0'],
       },
@@ -81,11 +97,11 @@ const DonutChartKelembaban = ({ idKandang }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col flex-1 items-center justify-center">
       <div className="relative w-48 h-48">
         <Doughnut data={data} options={options} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl text-center text-bromo-neutral-900">
-          {value}%
+        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl text-center ${value > 100 ? 'text-bromo-red-500 font-bold' : 'text-bromo-neutral-900'}`}>
+          {isLoading ? '0%' : `${value}%`}
         </div>
       </div>
       <div className="text-center mt-2 text-bromo-neutral-900">
