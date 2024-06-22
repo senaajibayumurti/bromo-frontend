@@ -2,11 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-const DropdownKandang = ({ setSelectedKandang }) => {
+const DropdownKandang = ({ setSelectedKandang, setKandangNotFound }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dataKandang, setDataKandang] = useState([]);
     const [selectedKandang, setLocalSelectedKandang] = useState(null);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const trigger = useRef(null);
     const dropdown = useRef(null);
@@ -15,11 +16,32 @@ const DropdownKandang = ({ setSelectedKandang }) => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('accessToken');
+                const userId = localStorage.getItem('userId');
                 if (!token) {
                     throw new Error('User is not authenticated');
                 }
 
-                const response = await fetch('http://toko.technosv.my.id/api/owner/kandang', {
+                // Fetch user data to determine role
+                const userResponse = await fetch(`https://toko.technosv.my.id/api/user/${userId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!userResponse.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const userData = await userResponse.json();
+                const userRole = userData.data.status;
+
+                // Determine API endpoint based on user role
+                const apiUrl = userRole === 'anak kandang'
+                    ? `https://toko.technosv.my.id/api/kandangByUser/${userId}`
+                    : 'https://toko.technosv.my.id/api/owner/kandang';
+
+                const response = await fetch(apiUrl, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
@@ -31,23 +53,27 @@ const DropdownKandang = ({ setSelectedKandang }) => {
                 }
 
                 const jsonData = await response.json();
-
                 setDataKandang(jsonData.data);
 
-                if (jsonData.data.length > 0) {
+                if (jsonData.data.length === 0) {
+                    setKandangNotFound(true);
+                } else {
+                    setKandangNotFound(false);
                     setLocalSelectedKandang(jsonData.data[0]);
                     setSelectedKandang(jsonData.data[0]);
                     localStorage.setItem('selectedKandangId', jsonData.data[0].id); // Save selected kandang ID to localStorage
                     console.log('Selected Kandang ID on Load:', jsonData.data[0].id); // Print to console
                 }
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching data: ', error);
                 setError(error.message || 'Failed to fetch data');
+                setIsLoading(false);
             }
         };
 
         fetchData();
-    }, [setSelectedKandang]);
+    }, [setSelectedKandang, setKandangNotFound]);
 
     useEffect(() => {
         const clickHandler = ({ target }) => {
@@ -75,7 +101,9 @@ const DropdownKandang = ({ setSelectedKandang }) => {
                         ID: {selectedKandang ? `${selectedKandang.id} - ${selectedKandang.nama_kandang}` : "-"}
                     </span>
                     <span className="block text-sm">Alamat: {selectedKandang ? selectedKandang.alamat_kandang : "-"}</span>
-                    <span className="block text-sm">Peternak: {selectedKandang ? selectedKandang.anak_kandang.username : "-"}</span>
+                    {selectedKandang?.anak_kandang?.username && (
+                        <span className="block text-sm">Peternak: {selectedKandang.anak_kandang.username}</span>
+                    )}
                     <span className="block text-sm">Luas: {selectedKandang ? selectedKandang.luas_kandang : "-"} m²</span>
                 </div>
                 <FontAwesomeIcon icon={faAngleDown} />
