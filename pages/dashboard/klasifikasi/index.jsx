@@ -3,7 +3,7 @@ import FormOne from "../../../components/Forms/FormOne";
 import FormKlasifikasi from "../../../components/Forms/FormKlasifikasi";
 import RoundedContainer from "../../../components/Layout/RoundedContainer";
 
-export default function Panen(children) {
+export default function Klasifikasi(children) {
     return (
         <DashboardLayout>
             <RoundedContainer>
