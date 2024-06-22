@@ -1,3 +1,4 @@
+// pages/login.jsx
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import TimedOverlay from '../../components/Layout/TimedOverlay';
@@ -13,7 +14,7 @@ export default function LogIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://toko.technosv.my.id/api/login', {
+            const response = await fetch('https://toko.technosv.my.id/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,19 +24,19 @@ export default function LogIn() {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Login berhasil!, received data:', data);
                 if (data.token && data.id) {
-                    // Simpan token dan userId ke localStorage
+                    // Save token, userId, and userRole to localStorage
                     localStorage.setItem('accessToken', data.token);
                     localStorage.setItem('userId', data.id);
+                    localStorage.setItem('userRole', data.status); // Save user role
 
-                    // Tampilkan overlay success
+                    // Show success overlay
                     setShowSuccessOverlay(true);
 
-                    // Redirect ke halaman dashboard setelah beberapa detik
+                    // Redirect to dashboard after a few seconds
                     setTimeout(() => {
-                        router.push('/dashboard/');
-                    }, 2000); // Waktu overlay muncul
+                        router.push('/dashboard');
+                    }, 2000); // Duration of overlay
                 } else {
                     throw new Error('Invalid response format');
                 }
@@ -51,7 +52,7 @@ export default function LogIn() {
     return (
         <div className="flex h-screen">
             <div className="w-3/4 flex justify-center items-center bg-green-600">
-            <img class="h-auto w-96 max-w-full object-center" src="/ayam.png" alt="BroMo.png"/>
+                <img className="h-auto w-96 max-w-full object-center" src="/ayam.png" alt="BroMo.png" />
             </div>
             <div className="w-1/4 bg-gray-100 flex items-center justify-center px-10">
                 <div className="w-full max-w-xl">
@@ -100,13 +101,13 @@ export default function LogIn() {
                         </form>
                         <p className="mt-10 text-center text-sm text-gray-500">
                             Belum punya akun?
-                            <Link href="/signin" class="font-semibold text-green-600 hover:text-green-500 underline"> Bikin di sini.</Link>
+                            <Link href="/signin" className="font-semibold text-green-600 hover:text-green-500 underline"> Bikin di sini.</Link>
                         </p>
                     </div>
                 </div>
             </div>
             {showSuccessOverlay && (
-                <TimedOverlay 
+                <TimedOverlay
                     teks="Login berhasil!"
                     type="success"
                     onClose={() => setShowSuccessOverlay(false)}
