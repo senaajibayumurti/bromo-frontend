@@ -1,14 +1,26 @@
+import React, { useState } from 'react';
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
 import RoundedContainer from "../../../components/Layout/RoundedContainer";
-import TableFour from "../../../components/Tables/TableFour";
 import TableKandang from "../../../components/Tables/TableKandang";
+import withRoleAuth from '../../../components/hoc/withRoleAuth';
 
-export default function Kandang(children) {
+const Kandang = () => {
+    const handleNavigation = (url) => {
+        window.location.href = url;
+    };
+
     return (
         <DashboardLayout>
-            <RoundedContainer>
+            <RoundedContainer
+                label={'Daftar Kandang'}
+                buttonLabel={'Tambah Kandang'} // Added buttonLabel prop
+                onButtonClick={() => handleNavigation('/dashboard/kandang/tambah-kandang')}
+                buttonType={'success'} // Added buttonType prop
+            >
                 <TableKandang/>
             </RoundedContainer>
         </DashboardLayout>
     );
-}
+};
+
+export default withRoleAuth(Kandang, ['owner']);

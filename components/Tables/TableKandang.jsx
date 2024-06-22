@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "../Button";
+import TimedOverlay from '../Layout/TimedOverlay';
 
-const TableKandang = () => {
+const TableKandang = ({ refreshData }) => {
   const [kandangData, setKandangData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [overlayText, setOverlayText] = useState('');
+  const [overlayType, setOverlayType] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
-          throw new Error('User is not authenticated');
-        }
-
-        const response = await fetch('http://toko.technosv.my.id/api/owner/kandang', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        setKandangData(result.data || result); // Adjust according to the response structure
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [refreshData]); // Dependency on refreshData to re-trigger fetching
 
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('User is not authenticated');
+      }
+
+      const response = await fetch('http://toko.technosv.my.id/api/owner/kandang', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setKandangData(result.data || result);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
   const getStatusClass = (status) => {
     switch (status) {
       case "aktif":
@@ -46,7 +49,44 @@ const TableKandang = () => {
       case "rehat":
         return "text-bromo-info-500 font-extrabold";
       default:
-        return "text-black"; // Default text color if status is neither 'aktif' nor 'rehat'
+        return "text-black";
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      setShowOverlay(true);
+      setOverlayText('Authentication required.');
+      setOverlayType('error');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://toko.technosv.my.id/api/owner/kandang/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete kandang data');
+      }
+
+      setShowOverlay(true);
+      setOverlayText('Kandang successfully deleted!');
+      setOverlayType('success');
+      setTimeout(() => {
+        setShowOverlay(false);
+        fetchData(); // Refresh data after deletion and overlay
+      }, 2000); // Delay before refreshing data
+    } catch (error) {
+      console.error("Error:", error);
+      setOverlayText(error.toString());
+      setShowOverlay(true);
+      setOverlayType('error');
     }
   };
 
@@ -56,6 +96,7 @@ const TableKandang = () => {
 
   return (
     <div className="max-w-full overflow-x-auto">
+      {showOverlay && <TimedOverlay teks={overlayText} type={overlayType} onClose={() => setShowOverlay(false)} />}
       <table className="w-full table-auto">
         <thead>
           <tr className="text-left">
@@ -84,9 +125,12 @@ const TableKandang = () => {
               <td className="border-b border-[#eee] px-4 py-5">{item.alamat_kandang}</td>
               <td className={`border-b border-[#eee] px-4 py-5 ${getStatusClass(item.rehat)}`}>{item.rehat}</td>
               <td className="border-b border-[#eee] px-4 py-5">
-                <Link href={`/edit/${item.id}`} passHref>
-                  <Button label="Edit" type={'info'}/>
-                </Link>
+                <div className="flex items-center space-x-3.5">
+                  <Link href={`/dashboard/kandang/edit-kandang?id=${item.id}`} passHref>
+                    <Button label="Sunting" type={'info'}/>
+                  </Link>
+                  <Button label="Hapus" type={'error'} onClick={() => handleDelete(item.id)}/>
+                </div>
               </td>
             </tr>
           ))}
