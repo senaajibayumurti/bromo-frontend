@@ -1,15 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button'; // Adjust the import path as necessary
+import TimedOverlay from '../Layout/TimedOverlay';
 
-const FormInputData = ({ idKandang }) => {
+const FormInputData = () => {
   const [data, setData] = useState({
-    idKandang: idKandang || '',
+    idKandang: '',
     pakan: '',
     minum: '',
     bobot: '',
     populasi: '',
     jumlahAyamMati: ''
   });
+
+  const [kandangOptions, setKandangOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [overlayText, setOverlayText] = useState('');
+  const [overlayType, setOverlayType] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const userId = localStorage.getItem('userId');
+        if (!token) {
+          throw new Error('User is not authenticated');
+        }
+
+        const response = await fetch(`http://toko.technosv.my.id/api/kandangByUser/${userId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        setKandangOptions(result.data || []);
+        setLoading(false);
+        if (result.data.length > 0) {
+          setData(data => ({ ...data, idKandang: result.data[0].id }));
+        }
+      } catch (error) {
+        console.error('Error fetching kandang data: ', error);
+        setShowOverlay(true);
+        setOverlayText('Gagal memuat data kandang.');
+        setOverlayType('error');
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,14 +64,52 @@ const FormInputData = ({ idKandang }) => {
     });
   };
 
-  const handleSave = () => {
-    console.log('Data saved:', data);
-    // Add your save logic here
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch('http://toko.technosv.my.id/api/anak-kandang/data-kandang', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id_kandang: data.idKandang,
+          pakan: data.pakan,
+          minum: data.minum,
+          bobot: data.bobot,
+          populasi: data.populasi,
+          jumlah_kematian: data.jumlahAyamMati,
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to save data: ${errorData.message || response.status}`);
+      }
+
+      setShowOverlay(true);
+      setOverlayText('Data berhasil disimpan!');
+      setOverlayType('success');
+      setTimeout(() => {
+        handleCancel();
+        setShowOverlay(false);
+      }, 2000);
+    } catch (error) {
+      console.error('Error saving data:', error);
+      setShowOverlay(true);
+      setOverlayText(error.toString());
+      setOverlayType('error');
+    }
   };
 
   const handleCancel = () => {
     setData({
-      idKandang: idKandang || '',
+      idKandang: '',
       pakan: '',
       minum: '',
       bobot: '',
@@ -35,25 +118,36 @@ const FormInputData = ({ idKandang }) => {
     });
   };
 
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (loading) {
+    return <p className="text-gray-500">Memuat...</p>;
+  }
+
   return (
     <div className="flex flex-col gap-9">
-      <form action="#">
+      {showOverlay && <TimedOverlay teks={overlayText} type={overlayType} onClose={() => setShowOverlay(false)}/>}
+      <form onSubmit={(e) => e.preventDefault()}>
         <div className="p-6.5">
-          {/* ID Kandang */}
+          {/* ID Kandang Dropdown */}
           <div className="flex flex-col mb-4">
             <label className="mb-1 block text-sm font-medium text-bromo-gray-900">
               ID Kandang
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="idKandang"
-                value={data.idKandang}
-                onChange={handleChange}
-                placeholder="ID Kandang"
-                className="w-full rounded border-[1.5px] ring-0 focus-within:ring-bromo-green-500 focus-within:ring-1 bg-transparent px-5 py-3 pr-10 text-bromo-gray-900 outline-none transition"
-              />
-            </div>
+            <select
+              name="idKandang"
+              value={data.idKandang}
+              onChange={handleChange}
+              className="w-full rounded border-[1.5px] ring-0 focus-within:ring-bromo-green-500 focus-within:ring-1 bg-transparent px-5 py-3 pr-10 text-bromo-gray-900 outline-none transition"
+            >
+              {kandangOptions.map((kandang) => (
+                <option key={kandang.id} value={kandang.id}>
+                  {kandang.nama_kandang}
+                </option>
+              ))}
+            </select>
           </div>
           {/* Pakan */}
           <div className="flex flex-col mb-4">
