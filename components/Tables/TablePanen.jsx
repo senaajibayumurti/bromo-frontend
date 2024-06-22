@@ -26,7 +26,13 @@ const TablePanen = () => {
         }
 
         const result = await response.json();
-        setPanenData(result.data || result);
+
+        // Mengurutkan data berdasarkan tanggal panen
+        const sortedData = (result.data || result).sort((a, b) => {
+          return new Date(b.tanggal_panen) - new Date(a.tanggal_panen);
+        });
+
+        setPanenData(sortedData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -34,70 +40,67 @@ const TablePanen = () => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, []);
+
+  const downloadCSV = (item) => {
+    const fileName = `data_panen_${item.kandang.replaceAll(' ', '_')}_${item.tanggal_panen.replaceAll('-', '_')}.csv`;
+    const csvRows = [];
+    const headers = Object.keys(item);
+    csvRows.push(headers.join(','));
+
+    const values = headers.map(header => {
+      const escaped = ('' + item[header]).replace(/"/g, '\\"');
+      return `"${escaped}"`;
+    });
+    csvRows.push(values.join(','));
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="max-w-full overflow-x-auto">
       <table className="w-full table-auto">
         <thead>
-          <tr className="bg-gray-2 text-left dark:bg-meta-4">
-            <th className="min-w-[50px] px-4 py-4 font-medium text-black xl:pl-11">
-              No
-            </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
-              Nama Kandang
-            </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
-              Tanggal Mulai
-            </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
-              Tanggal Panen
-            </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
-              Jumlah Panen (ekor)
-            </th>
-            <th className="min-w-[150px] px-4 py-4 font-medium text-black">
-              Bobot Total (kg)
-            </th>
-            <th className="px-4 py-4 font-medium text-black">
-              Aksi
-            </th>
+          <tr className="text-left">
+            <th className="px-4 py-4 font-medium text-black">No</th>
+            <th className="px-4 py-4 font-medium text-black">Nama Kandang</th>
+            <th className="px-4 py-4 font-medium text-black">Tanggal Mulai</th>
+            <th className="px-4 py-4 font-medium text-black">Tanggal Panen</th>
+            <th className="px-4 py-4 font-medium text-black">Jumlah Panen (ekor)</th>
+            <th className="px-4 py-4 font-medium text-black">Bobot Total (kg)</th>
+            <th className="px-4 py-4 font-medium text-black">Aksi</th>
           </tr>
         </thead>
         <tbody>
-        {loading ? (
+          {loading ? (
             <tr>
               <td colSpan="7" className="text-center py-4">
                 <p className="text-gray-500">Memuat...</p>
               </td>
             </tr>
-          ) : panenData.map((packageItem, key) => (
-            <tr key={key}>
-              <td className="border-b border-[#eee] px-4 py-5 xl:pl-11">
-                <p className="text-black">{key + 1}</p>
+          ) : panenData.map((item, index) => (
+            <tr key={index}>
+              <td className="px-4 py-5">{index + 1}</td>
+              <td className="px-4 py-5">{item.kandang}</td>
+              <td className="px-4 py-5">{item.tanggal_mulai}</td>
+              <td className="px-4 py-5">{item.tanggal_panen}</td>
+              <td className="px-4 py-5">{item.jumlah_panen}</td>
+              <td className="px-4 py-5">{item.bobot_total}</td>
+              <td className="px-4 py-5">
+                <div className="flex items-center space-x-3.5">
+                  <Button label="Unduh" type={'success'} onClick={() => downloadCSV(item)} />
+                  <Button label="Hapus" type={'error'} />
+                </div>
               </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.kandang}</p>
-              </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.tanggal_mulai}</p>
-              </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.tanggal_panen}</p>
-              </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.jumlah_panen}</p>
-              </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                <p className="text-black">{packageItem.bobot_total}</p>
-              </td>
-              <td className="border-b border-[#eee] px-4 py-5">
-                  <div className="flex items-center space-x-3.5">
-                    <Button label='Unduh' type={'success'}/>
-                    <Button label='Hapus' type={'error'}/>
-                  </div>
-                </td>
             </tr>
           ))}
         </tbody>
