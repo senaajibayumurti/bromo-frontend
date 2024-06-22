@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router'; // tambahkan impor ini
+import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faWarehouse, faListAlt, faEgg, faUsers, faDatabase, faFile, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faWarehouse, faEgg, faUsers, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Logotype from '../TopBar/Topbar_landingpage';
 
-// Menu items
-const menuItems = [
+const ownerMenuItems = [
     {
         menu: 'Beranda',
         link: '/dashboard/',
@@ -18,11 +17,6 @@ const menuItems = [
         icon: faWarehouse,
     },
     {
-        menu: 'Rekap Data',
-        link: '/dashboard/rekap-data',
-        icon: faListAlt,
-    },
-    {
         menu: 'Panen',
         link: '/dashboard/panen',
         icon: faEgg,
@@ -31,6 +25,14 @@ const menuItems = [
         menu: 'Pekerja',
         link: '/dashboard/pekerja',
         icon: faUsers,
+    },
+];
+
+const anakKandangMenuItems = [
+    {
+        menu: 'Beranda',
+        link: '/dashboard/',
+        icon: faHome,
     },
     {
         menu: 'Input Data',
@@ -47,34 +49,76 @@ const menuItems = [
 export default function Sidebar() {
     const router = useRouter();
     const [activeMenu, setActiveMenu] = useState('');
+    const [menuItems, setMenuItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [role, setRole] = useState('');
 
-    const updateActiveMenu = () => {
-        const currentPath = router.asPath;
-
-        // Modifikasi logika penentuan activeMenu
-        if (currentPath === '/dashboard/') {
-            setActiveMenu('/dashboard/');
-        } else if (currentPath === '/dashboard/kandang') {
-            setActiveMenu('/dashboard/kandang');
-        } else if (currentPath === '/dashboard/rekap-data') {
-            setActiveMenu('/dashboard/rekap-data');
-        } else if (currentPath === '/dashboard/panen') {
-            setActiveMenu('/dashboard/panen');
-        } else if (currentPath === '/dashboard/pekerja') {
-            setActiveMenu('/dashboard/pekerja');
-        } else if (currentPath === '/dashboard/input-data') {
-            setActiveMenu('/dashboard/input-data');
-        } else if (currentPath === '/dashboard/input-panen') {
-            setActiveMenu('/dashboard/input-panen');
-        } else {
-            setActiveMenu(''); // Tidak ada item yang set active jika URL diluar kriteria
-        }
-    };
-
-    // Run once on component mount
     useEffect(() => {
-        updateActiveMenu();
+        const fetchUserRole = async () => {
+            try {
+                const token = localStorage.getItem('accessToken');
+                const userId = localStorage.getItem('userId');
+                if (!token || !userId) {
+                    throw new Error('User is not authenticated');
+                }
+
+                const response = await fetch(`https://toko.technosv.my.id/api/user/${userId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const userData = await response.json();
+                const userRole = userData.data.status;
+
+                if (userRole === 'owner') {
+                    setMenuItems(ownerMenuItems);
+                    setRole('owner');
+                } else if (userRole === 'anak kandang') {
+                    setMenuItems(anakKandangMenuItems);
+                    setRole('anak kandang');
+                }
+
+                setLoading(false); // Set loading to false after fetching data
+            } catch (error) {
+                console.error('Error fetching user role:', error);
+                setLoading(false); // Ensure loading is set to false in case of error
+            }
+        };
+
+        fetchUserRole();
     }, []);
+
+    useEffect(() => {
+        const updateActiveMenu = () => {
+            const currentPath = router.asPath;
+
+            if (currentPath === '/dashboard/') {
+                setActiveMenu('/dashboard/');
+            } else if (currentPath === '/dashboard/kandang') {
+                setActiveMenu('/dashboard/kandang');
+            } else if (currentPath === '/dashboard/rekap-data') {
+                setActiveMenu('/dashboard/rekap-data');
+            } else if (currentPath === '/dashboard/panen') {
+                setActiveMenu('/dashboard/panen');
+            } else if (currentPath === '/dashboard/pekerja') {
+                setActiveMenu('/dashboard/pekerja');
+            } else if (currentPath === '/dashboard/input-data') {
+                setActiveMenu('/dashboard/input-data');
+            } else if (currentPath === '/dashboard/input-panen') {
+                setActiveMenu('/dashboard/input-panen');
+            } else {
+                setActiveMenu('');
+            }
+        };
+
+        updateActiveMenu();
+    }, [router.asPath]);
 
     const displayMenu = () => {
         return menuItems.map((item) => (
@@ -91,12 +135,40 @@ export default function Sidebar() {
         ));
     };
 
+    const loadingItemsCount = role === 'owner' ? 4 : 3;
+
+    if (loading) {
+        return (
+            <>
+                <main>
+                    <div className='flex flex-col h-full ps-3 pe-3 shadow-lg items-center bg-bromo-green-500'>
+                        <div className='w-64 mt-3 p-3 rounded-lg bg-gradient-to-r from-bromo-neutral-50 to-bromo-green-50'>
+                            <Logotype />
+                        </div>
+                        <div>
+                            {[...Array(loadingItemsCount)].map((_, index) => (
+                                <div
+                                    key={index}
+                                    className='block w-64 py-3 ps-6 pe-6 mt-2 text-start rounded focus:outline-none transition-colors duration-300 ease-in-out bg-bromo-green-400'>
+                                    <div className='bg-bromo-green-400 text-bromo-green-400'>
+                                        <FontAwesomeIcon icon={faHome} className="mr-2" />
+                                        Loading...
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </main>
+            </>
+        );
+    }
+
     return (
         <>
             <main>
                 <div className='flex flex-col h-full ps-3 pe-3 shadow-lg items-center bg-bromo-green-500'>
-                    <div className='w-full mt-3 p-3 rounded-lg bg-gradient-to-r from-bromo-neutral-50 to-bromo-green-50'>
-                        <Logotype/>
+                    <div className='w-64 mt-3 p-3 rounded-lg bg-gradient-to-r from-bromo-neutral-50 to-bromo-green-50'>
+                        <Logotype />
                     </div>
                     <div>
                         {displayMenu()}
