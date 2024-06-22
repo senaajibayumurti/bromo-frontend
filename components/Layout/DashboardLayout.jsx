@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }) {
                     <div className="p-4 md:p-6 2xl:p-10 z-0">
                         {React.Children.map(children, (child, index) => {
                             return (
-                                <div className="max-w-screen-2xl mb-5" key={index}>
+                                <div className="max-w-screen-2xl mb-5 space-y-4" key={index}>
                                     {child}
                                 </div>
                             );

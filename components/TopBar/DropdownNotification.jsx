@@ -27,7 +27,7 @@ export default function DropdownNotification() {
           setNotifying(false);
           setDropdownOpen(!dropdownOpen);
         }}
-        className="relative flex h-12 w-12 items-center justify-center rounded-full bg-bromo-green-100 hover:text-primary cursor-pointer"
+        className="relative flex h-12 w-12 items-center justify-center rounded-full hover:text-primary cursor-pointer"
       >
         <span
           className={`absolute -top-0.5 right-0 z-50 h-2 w-2 rounded-full bg-meta-1 ${
@@ -42,10 +42,10 @@ export default function DropdownNotification() {
       {dropdownOpen && (
         <div
           ref={dropdown}
-          className="absolute -right-27 mt-2.5 px-4 flex flex-col rounded-sm border border-bromo-green-200 bg-bromo-green-100 shadow-default right-0 w-80 max-h-60 overflow-y-auto"
+          className="absolute -right-27 flex flex-col rounded-md border border-bromo-green-200 bg-bromo-green-100 shadow-default right-0 w-80 max-h-60 overflow-y-auto"
         >
-          <div className="px-4.5 py-3">
-            <h5 className="text-lg font-medium text-bodydark2">Notifikasi</h5>
+          <div className="px-4 py-3 bg-bromo-green-500">
+            <h5 className="text-lg font-medium text-bromo-neutral-50">Notifikasi</h5>
           </div>
           <ul>
             <li className="border-t border-bromo-green-200 px-4.5 py-3 hover:bg-gray-2">

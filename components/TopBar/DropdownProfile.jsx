@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCog, faSignOutAlt, faAngleDown, faPerson } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faAngleDown, faPerson } from "@fortawesome/free-solid-svg-icons";
 import Overlay from "../Layout/Overlay";
 import TimedOverlay from "../Layout/TimedOverlay";
 
@@ -82,16 +82,16 @@ const DropdownProfil = () => {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center gap-4 cursor-pointer"
       >
-        <div className="hidden lg:block text-right">
-          <span className="block text-sm font-medium">{userData.nama_lengkap || '-'}</span>
-          <span className="block text-xs">{userData.status || '-'}</span>
-        </div>
         <div className="h-12 w-12 rounded-full overflow-hidden">
           <img
             className="w-full h-full object-cover"
             src="/bromo.png"
             alt="User"
           />
+        </div>
+        <div className="hidden lg:block text-start">
+          <span className="block text-sm font-medium">{userData.nama_lengkap || '-'}</span>
+          <span className="block text-xs">{userData.status || '-'}</span>
         </div>
         <FontAwesomeIcon icon={faAngleDown} />
       </div>
