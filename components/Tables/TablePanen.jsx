@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../Button';
+import TimedOverlay from '../Layout/TimedOverlay';
 
 const TablePanen = () => {
   const [panenData, setPanenData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [overlayMessage, setOverlayMessage] = useState('');
+  const [overlayType, setOverlayType] = useState('success');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +49,10 @@ const TablePanen = () => {
   }, []);
 
   const downloadCSV = (item) => {
+    setOverlayMessage('Mengunduh data...');
+    setOverlayType('success');
+    setShowOverlay(true);
+
     const fileName = `data_panen_${item.kandang.replaceAll(' ', '_')}_${item.tanggal_panen.replaceAll('-', '_')}.csv`;
     const csvRows = [];
     const headers = Object.keys(item);
@@ -64,6 +72,20 @@ const TablePanen = () => {
     link.download = fileName;
     link.click();
     URL.revokeObjectURL(url);
+    
+    setTimeout(() => {
+      setShowOverlay(false);
+    }, 2000);
+  };
+
+  const handleDelete = () => {
+    setOverlayMessage('Fitur belum tersedia.');
+    setOverlayType('info');
+    setShowOverlay(true);
+
+    setTimeout(() => {
+      setShowOverlay(false);
+    }, 2000);
   };
 
   return (
@@ -98,13 +120,20 @@ const TablePanen = () => {
               <td className="px-4 py-5">
                 <div className="flex items-center space-x-3.5">
                   <Button label="Unduh" type={'success'} onClick={() => downloadCSV(item)} />
-                  <Button label="Hapus" type={'error'} />
+                  <Button label="Hapus" type={'error'} onClick={handleDelete} />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {showOverlay && (
+        <TimedOverlay
+          teks={overlayMessage}
+          type={overlayType}
+          onClose={() => setShowOverlay(false)}
+        />
+      )}
     </div>
   );
 };
