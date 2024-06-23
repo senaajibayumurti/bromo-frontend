@@ -3,7 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
@@ -15,7 +15,7 @@
     "chart.js": "^4.4.3",
     "classnames": "^2.5.1",
     "framer-motion": "^11.2.10",
-    "next": "latest",
+    "next": "13.2.4",
     "react": "18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
