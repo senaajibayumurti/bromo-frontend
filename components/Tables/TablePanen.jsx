@@ -18,7 +18,7 @@ const TablePanen = () => {
           throw new Error('User is not authenticated');
         }
 
-        const response = await fetch('http://toko.technosv.my.id/api/panen', {
+        const response = await fetch('https://toko.technosv.my.id/api/panen', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,

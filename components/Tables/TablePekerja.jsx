@@ -13,7 +13,7 @@ const TablePekerja = () => {
           throw new Error('User is not authenticated');
         }
 
-        const response = await fetch('http://toko.technosv.my.id/api/owner/user', {
+        const response = await fetch('https://toko.technosv.my.id/api/owner/user', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
