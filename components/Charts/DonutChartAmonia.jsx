@@ -26,7 +26,7 @@ const DonutChartAmonia = ({ idKandang }) => {
           throw new Error('User is not authenticated');
         }
 
-        const response = await fetch(`https://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, {
+        const response = await fetch(`http://127.0.0.1:8080/api/sensor-amoniak/${idKandang}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,

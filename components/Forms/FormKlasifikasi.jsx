@@ -50,9 +50,9 @@ const FormKlasifikasi = ({ idKandang }) => {
         };
 
         const [suhuResponse, amoniaResponse, kandangResponse] = await Promise.all([
-          fetch(`https://toko.technosv.my.id/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
-          fetch(`https://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, { headers }),
-          fetch(`https://toko.technosv.my.id/api/data-kandang-by-kandang/${idKandang}`, { headers }),
+          fetch(`http://127.0.0.1:8080/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
+          fetch(`http://127.0.0.1:8080/api/sensor-amoniak/${idKandang}`, { headers }),
+          fetch(`http://127.0.0.1:8080/api/data-kandang-by-kandang/${idKandang}`, { headers }),
         ]);
 
         const suhuData = await suhuResponse.json();

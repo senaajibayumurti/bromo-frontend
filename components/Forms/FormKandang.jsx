@@ -28,7 +28,7 @@ const FormKandang = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('https://toko.technosv.my.id/api/owner/kandang', {
+      const response = await fetch('http://127.0.0.1:8080/api/owner/kandang', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

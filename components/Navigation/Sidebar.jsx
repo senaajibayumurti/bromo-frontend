@@ -62,7 +62,7 @@ export default function Sidebar() {
                     throw new Error('User is not authenticated');
                 }
 
-                const response = await fetch(`https://toko.technosv.my.id/api/user/${userId}`, {
+                const response = await fetch(`http://127.0.0.1:8080/api/user/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',

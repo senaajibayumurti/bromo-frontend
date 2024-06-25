@@ -88,8 +88,8 @@ const Summary = ({ idKandang }) => {
                 };
 
                 const [suhuResponse, amoniaResponse] = await Promise.all([
-                    fetch(`https://toko.technosv.my.id/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
-                    fetch(`https://toko.technosv.my.id/api/sensor-amoniak/${idKandang}`, { headers })
+                    fetch(`http://127.0.0.1:8080/api/sensor-suhu-kelembaban/${idKandang}`, { headers }),
+                    fetch(`http://127.0.0.1:8080/api/sensor-amoniak/${idKandang}`, { headers })
                 ]);
 
                 if (!suhuResponse.ok || !amoniaResponse.ok) {

@@ -22,7 +22,7 @@ export default function SignIn() {
         }
 
         try {
-            const response = await fetch('https://toko.technosv.my.id/api/register-anak-kandang', {
+            const response = await fetch('http://127.0.0.1:8080/api/register-anak-kandang', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

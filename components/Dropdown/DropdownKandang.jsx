@@ -22,7 +22,7 @@ const DropdownKandang = ({ setSelectedKandang, setKandangNotFound }) => {
                 }
 
                 // Fetch user data to determine role
-                const userResponse = await fetch(`https://toko.technosv.my.id/api/user/${userId}`, {
+                const userResponse = await fetch(`http://127.0.0.1:8080/api/user/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -38,8 +38,8 @@ const DropdownKandang = ({ setSelectedKandang, setKandangNotFound }) => {
 
                 // Determine API endpoint based on user role
                 const apiUrl = userRole === 'anak kandang'
-                    ? `https://toko.technosv.my.id/api/kandangByUser/${userId}`
-                    : 'https://toko.technosv.my.id/api/owner/kandang';
+                    ? `http://127.0.0.1:8080/api/kandangByUser/${userId}`
+                    : 'http://127.0.0.1:8080/api/owner/kandang';
 
                 const response = await fetch(apiUrl, {
                     headers: {

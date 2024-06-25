@@ -27,7 +27,7 @@ const FormInputPanen = () => {
           throw new Error('User is not authenticated');
         }
 
-        const response = await fetch(`https://toko.technosv.my.id/api/kandangByUser/${userId}`, {
+        const response = await fetch(`http://127.0.0.1:8080/api/kandangByUser/${userId}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -62,7 +62,7 @@ const FormInputPanen = () => {
     const fetchKandangDetail = async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(`https://toko.technosv.my.id/api/kandang/${data.idKandang}`, {
+        const response = await fetch(`http://127.0.0.1:8080/api/kandang/${data.idKandang}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -104,7 +104,7 @@ const FormInputPanen = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch('https://toko.technosv.my.id/api/panen', {
+      const response = await fetch('http://127.0.0.1:8080/api/panen', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

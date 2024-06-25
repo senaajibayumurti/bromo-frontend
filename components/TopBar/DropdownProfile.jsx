@@ -26,7 +26,7 @@ const DropdownProfil = () => {
           throw new Error('User ID is not available');
         }
 
-        const response = await fetch(`https://toko.technosv.my.id/api/user/${userId}`, {
+        const response = await fetch(`http://127.0.0.1:8080/api/user/${userId}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
