@@ -121,10 +121,11 @@ export default function Sidebar() {
     }, [router.asPath]);
 
     const displayMenu = () => {
-        return menuItems.map((item) => (
+        return menuItems.map((item, index) => (
             <Link
                 key={item.menu}
                 href={item.link}
+                id={`sidebar${item.menu.replace(/\s+/g, '-')}`} // Adding ID here
                 className={`block w-64 py-3 ps-6 pe-6 mt-2 text-start rounded focus:outline-none transition-colors duration-300 ease-in-out ${
                     activeMenu === item.link ? 'bg-bromo-green-100 text-bromo-neutral-900' : 'bg-bromo-green-500 text-bromo-neutral-50'
                 } hover:bg-bromo-green-100 hover:text-bromo-neutral-900 focus:bg-bromo-green-500 focus:text-bromo-neutral-50 active:bg-bromo-green-500 active:text-bromo-neutral-50 flex items-center`}
