@@ -137,13 +137,16 @@ const FormInputData = () => {
               ID Kandang
             </label>
             <select
+              id="dropdownId_kandang"
               name="idKandang"
               value={data.idKandang}
               onChange={handleChange}
               className="w-full rounded border-[1.5px] ring-0 focus-within:ring-bromo-green-500 focus-within:ring-1 bg-transparent px-5 py-3 pr-10 text-bromo-gray-900 outline-none transition"
             >
               {kandangOptions.map((kandang) => (
-                <option key={kandang.id} value={kandang.id}>
+                <option
+                  id={`optionId_Kandang=${kandang.id}`}
+                  key={kandang.id} value={kandang.id}>
                   {kandang.nama_kandang}
                 </option>
               ))}
@@ -156,6 +159,7 @@ const FormInputData = () => {
             </label>
             <div className="relative">
               <input
+                id="inputPakan"
                 type="text"
                 name="pakan"
                 value={data.pakan}
@@ -173,6 +177,7 @@ const FormInputData = () => {
             </label>
             <div className="relative">
               <input
+                id="inputMinum"
                 type="text"
                 name="minum"
                 value={data.minum}
@@ -190,6 +195,7 @@ const FormInputData = () => {
             </label>
             <div className="relative">
               <input
+                id="inputBobot"
                 type="text"
                 name="bobot"
                 value={data.bobot}
@@ -207,6 +213,7 @@ const FormInputData = () => {
             </label>
             <div className="relative">
               <input
+                id="inputPopulasi"
                 type="text"
                 name="populasi"
                 value={data.populasi}
@@ -224,6 +231,7 @@ const FormInputData = () => {
             </label>
             <div className="relative">
               <input
+                id="inputJumlah_Ayam_Mati"
                 type="text"
                 name="jumlahAyamMati"
                 value={data.jumlahAyamMati}

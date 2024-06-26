@@ -168,13 +168,16 @@ const FormInputPanen = () => {
               ID Kandang
             </label>
             <select
+              id="dropdownId_kandang"
               name="idKandang"
               value={data.idKandang}
               onChange={handleChange}
               className="w-full rounded border-[1.5px] ring-0 focus-within:ring-bromo-green-500 focus-within:ring-1 px-5 py-3 pr-10 text-bromo-neutral-900 outline-none transition"
             >
               {kandangOptions.map((kandang) => (
-                <option key={kandang.id} value={kandang.id}>
+                <option
+                  id={`optionId_Kandang=${kandang.id}`}
+                  key={kandang.id} value={kandang.id}>
                   {kandang.nama_kandang}
                 </option>
               ))}
@@ -186,6 +189,7 @@ const FormInputPanen = () => {
               Tanggal Panen
             </label>
             <input
+              id="inputTanggal_Panen"
               type="date"
               name="tanggalPanen"
               value={data.tanggalPanen}
@@ -200,6 +204,7 @@ const FormInputPanen = () => {
             </label>
             <div className="relative">
               <input
+                id="inputJumlah_Panen"
                 type="number"
                 name="jumlahPanen"
                 value={data.jumlahPanen}
@@ -217,6 +222,7 @@ const FormInputPanen = () => {
             </label>
             <div className="relative">
               <input
+                id="inputBobot_Total"
                 type="number"
                 name="bobotTotal"
                 value={data.bobotTotal}

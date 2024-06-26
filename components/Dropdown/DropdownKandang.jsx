@@ -92,6 +92,7 @@ const DropdownKandang = ({ setSelectedKandang, setKandangNotFound }) => {
     return (
         <div className="relative w-full">
             <div
+                id="dropdownDaftarKandang"
                 ref={trigger}
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex justify-between items-center font-medium text-bromo-neutral-50 p-4 bg-bromo-green-500 text-bromo-gray-900 cursor-pointer rounded-lg border border-stroke"
@@ -117,6 +118,7 @@ const DropdownKandang = ({ setSelectedKandang, setKandangNotFound }) => {
                     <ul>
                         {dataKandang.map((kandang, index) => (
                             <li
+                                id={`optionId_Kandang=${kandang.id}`}
                                 key={index}
                                 onClick={() => {
                                     setLocalSelectedKandang(kandang);

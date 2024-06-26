@@ -100,15 +100,17 @@ const FormEditKandang = () => {
             </label>
             {key === 'rehat' ? (
               <select
+                id="dropdownRehat"
                 name={key}
                 value={value}
                 onChange={(e) => setKandangData({...kandangData, [e.target.name]: e.target.value})}
                 className="w-full rounded border focus:ring-bromo-green-500 focus:ring-1 bg-transparent px-5 py-3 outline-none transition">
-                <option value="aktif">Aktif</option>
-                <option value="rehat">Rehat</option>
+                <option id='optionAktif' value="aktif">Aktif</option>
+                <option id='optionRehat' value="rehat">Rehat</option>
               </select>
             ) : (
               <input
+                id={`input${key.charAt(0).toUpperCase() + key.slice(1)}`}
                 type="text"
                 name={key}
                 value={value}

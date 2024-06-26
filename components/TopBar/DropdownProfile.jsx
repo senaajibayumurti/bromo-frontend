@@ -78,6 +78,7 @@ const DropdownProfil = () => {
   return (
     <div className="relative">
       <div
+        id="dropdownProfile"
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center gap-4 cursor-pointer"
@@ -100,6 +101,7 @@ const DropdownProfil = () => {
         <div ref={dropdown} className="absolute right-0 mt-4 w-72 bg-bromo-green-100 rounded-lg border border-bromo-green-200 shadow-default">
           <ul className="flex flex-col">
             <li 
+              id="optionProfile" // ID untuk tombol profil
               className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-100 text-bromo-gray-900 hover:bg-bromo-green-500 hover:text-bromo-neutral-50 active:bg-bromo-green-1000 active:text-bromo-neutral-50 p-2 w-full text-left" 
               onClick={() => handleNavigation('/dashboard/profil')}
             >
@@ -107,6 +109,7 @@ const DropdownProfil = () => {
               <span>Profile</span>
             </li>
             <li 
+              id="optionLogOut" // ID untuk tombol logout
               className="flex items-center gap-3 text-sm font-medium cursor-pointer rounded-lg bg-bromo-green-100 text-bromo-gray-900 hover:bg-bromo-green-500 hover:text-bromo-neutral-50 active:bg-bromo-green-1000 active:text-bromo-neutral-50 p-2 w-full text-left" 
               onClick={handleLogout}
             >

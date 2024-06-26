@@ -22,6 +22,7 @@ export default function DropdownNotification() {
   return (
     <li className="relative">
       <div
+        id="dropdownNotification"
         ref={trigger}
         onClick={() => {
           setNotifying(false);
