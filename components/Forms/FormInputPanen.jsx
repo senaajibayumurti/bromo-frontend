@@ -229,8 +229,8 @@ const FormInputPanen = () => {
           </div>
           {/* Buttons */}
           <div className="flex justify-end space-x-4">
-            <Button label="Simpan" onClick={handleSave} type="success" />
-            <Button label="Batal" onClick={handleCancel} type="error" />
+            <Button id="btnSimpanInputPanen" label="Simpan" onClick={handleSave} type="success" />
+            <Button id="btnBatalInputPanen" label="Batal" onClick={handleCancel} type="error" />
           </div>
         </div>
       </form>

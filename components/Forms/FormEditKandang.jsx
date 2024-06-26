@@ -119,8 +119,8 @@ const FormEditKandang = () => {
           </div>
         ))}
         <div className="flex justify-end space-x-4">
-          <Button label="Simpan" onClick={handleSave} type="success" />
-          <Button label="Batal" onClick={handleCancel} type="error" />
+          <Button id="btnSimpanEditKandang" label="Simpan" onClick={handleSave} type="success" />
+          <Button id="btnBatalEditkandang" label="Batal" onClick={handleCancel} type="error" />
         </div>
       </form>
     </div>

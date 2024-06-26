@@ -92,7 +92,7 @@ const TableRekapData = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5">
                   <div className="flex items-center space-x-3.5">
-                    <Button label='Hapus' type={'error'}/>
+                    <Button id={`btnHapusRekapData-${item.id}`} label='Hapus' type={'error'}/>
                   </div>
                 </td>
               </tr>

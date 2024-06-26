@@ -127,9 +127,9 @@ const TableKandang = ({ refreshData }) => {
               <td className="border-b border-[#eee] px-4 py-5">
                 <div className="flex items-center space-x-3.5">
                   <Link href={`/dashboard/kandang/edit-kandang?id=${item.id}`} passHref>
-                    <Button label="Sunting" type={'info'}/>
+                    <Button id={`btnSuntingKandang-${item.id}`} label="Sunting" type={'info'}/>
                   </Link>
-                  <Button label="Hapus" type={'error'} onClick={() => handleDelete(item.id)}/>
+                  <Button id={`btnHapusKandang-${item.id}`} label="Hapus" type={'error'} onClick={() => handleDelete(item.id)}/>
                 </div>
               </td>
             </tr>

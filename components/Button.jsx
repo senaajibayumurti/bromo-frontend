@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ label, onClick, type, disabled }) => {
+const Button = ({id, label, onClick, type, disabled }) => {
     let buttonStyle = '';
     switch (type) {
         case 'success':
@@ -19,6 +19,7 @@ const Button = ({ label, onClick, type, disabled }) => {
 
     return (
         <button
+            id={`${id}`}
             type="button"
             className={`px-5 py-1.5 rounded-lg text-sm text-bromo-neutral-50 font-bold ${buttonStyle} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={onClick}

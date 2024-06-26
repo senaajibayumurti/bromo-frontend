@@ -74,7 +74,7 @@ const FormForecasting = ({ idKandang }) => {
             </div>
           </div>
           {/* Button to trigger the update of date and time */}
-          <Button label="Forecast Sekarang" onClick={handleForecastClick} type="success" />
+          <Button id="btnForecast" label="Forecast Sekarang" onClick={handleForecastClick} type="success" />
         </div>
       </form>
     </div>

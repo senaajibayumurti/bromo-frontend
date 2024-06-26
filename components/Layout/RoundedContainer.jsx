@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../Button';
 
 
-const RoundedContainer = ({ label, children, width, buttonLabel, onButtonClick, buttonType }) => {
+const RoundedContainer = ({ btnId, label, children, width, buttonLabel, onButtonClick, buttonType }) => {
   return (
     <div className={`relative rounded-lg border border-stroke bg-neutral-50 px-5 py-3 shadow-default sm:px-7.5 xl:pb-3 shadow-md ${width}`}>
       {label && (
@@ -12,7 +12,7 @@ const RoundedContainer = ({ label, children, width, buttonLabel, onButtonClick, 
             {label}
           </h3>
           {buttonLabel && (
-            <Button label={buttonLabel} onClick={onButtonClick} type={buttonType} />
+            <Button id={btnId} label={buttonLabel} onClick={onButtonClick} type={buttonType} />
           )}
         </div>
       )}

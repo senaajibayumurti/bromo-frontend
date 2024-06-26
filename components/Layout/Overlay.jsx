@@ -8,8 +8,8 @@ const Overlay = ({ text, onYes, onNo }) => {
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
                 <p className="mb-4 text-lg font-semibold">{text}</p>
                 <div className="flex justify-center gap-4">
-                    <Button label="Ya" onClick={onYes} type="success" />
-                    <Button label="Tidak" onClick={onNo} type="error" />
+                    <Button id="btnYes" label="Ya" onClick={onYes} type="success" />
+                    <Button id="btnNo" label="Tidak" onClick={onNo} type="error" />
                 </div>
             </div>
         </div>
