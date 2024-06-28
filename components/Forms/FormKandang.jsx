@@ -72,7 +72,7 @@ const FormKandang = () => {
               <div className="relative">
                 <input
                   id={`input${key.charAt(0).toUpperCase() + key.slice(1)}`}
-                  type="text"
+                  type={key === 'tanggal_mulai' ? 'date' : 'text'}
                   name={key}
                   value={value}
                   onChange={handleChange}
