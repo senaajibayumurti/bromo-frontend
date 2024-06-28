@@ -120,7 +120,6 @@ const TablePanen = () => {
               <td className="px-4 py-5">
                 <div className="flex items-center space-x-3.5">
                   <Button id={`btnUnduhPanen-${item.id}`} label="Unduh" type={'success'} onClick={() => downloadCSV(item)} />
-                  <Button id={`btnHapusPanen-${item.id}`} label="Hapus" type={'error'} onClick={handleDelete} />
                 </div>
               </td>
             </tr>

@@ -43,7 +43,9 @@ const Beranda = () => {
                             ) : null}
                         </RoundedContainer>
                         <RoundedContainer label={'Forecasting'} width={'w-1/4'}>
-                            <FormForecasting />
+                            {selectedKandang ? (
+                                <FormForecasting idKandang={selectedKandang.id} />
+                            ) : null}
                         </RoundedContainer>
                     </div>
                 </>
